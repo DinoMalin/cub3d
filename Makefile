@@ -8,7 +8,7 @@ CFLAGS =	-Wall -Wextra -Werror -g \
 			-Iinclude
 
 LFLAGS =	-Llib \
-			-lmlx42 -lft -ldl -lglfw -pthread
+			-lmlx42 -lft -ldl -lglfw -pthread -lm
 
 SRC_DIR = src/
 OBJ_DIR = obj/
