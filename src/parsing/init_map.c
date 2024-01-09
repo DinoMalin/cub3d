@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:02:50 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/05 14:22:58 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/09 19:46:03 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,30 @@ char	**join_matrix(char **s1, char *s2)
 	return (result);
 }
 
-int	init_map(char *name, t_map *map)
+void	get_starting_position(t_game *game)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	while (game->map.map[x])
+	{
+		y = 0;
+		while (game->map.map[x][y])
+		{
+			if (game->map.map[x][y] == 'P')
+			{
+				game->rc.posX = x;
+				game->rc.posY = y;
+				return ;
+			}
+			y++;
+		}
+		x++;
+	}
+}
+
+int	init_map(char *name, t_game *game)
 {
 	int		fd;
 	char	*line;
@@ -61,17 +84,18 @@ int	init_map(char *name, t_map *map)
 		return (FALSE);
 	line = get_next_line(fd);
 	if (line)
-		init_map_properties(map);
+		init_map_properties(&game->map);
 	else
 		return (FALSE);
 	while (line)
 	{
 		line = ft_strtrim(line, "\n");
-		map->map = join_matrix(map->map, line);
+		game->map.map = join_matrix(game->map.map, line);
 		free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);
 	free(line);
+	get_starting_position(game);
 	return (TRUE);
 }
