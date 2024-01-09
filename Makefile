@@ -13,7 +13,8 @@ LFLAGS =	-Llib \
 SRC_DIR = src/
 OBJ_DIR = obj/
 FILES =	main \
-		parsing/init_map # parsing/utils_parsing
+		parsing/init_map \
+		raycasting/raycasting raycasting/utils raycasting/directions
 
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))

@@ -3,6 +3,7 @@
 		"header.h": "c",
 		"math.h": "c",
 		"libft.h": "c",
-		"mlx42.h": "c"
+		"mlx42.h": "c",
+		"fcntl.h": "c"
 	}
 }
