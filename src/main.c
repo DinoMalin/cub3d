@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/09 22:28:26 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/10 15:00:36 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,34 +30,18 @@ void	game_loop(void *param)
 		down(game);
 }
 
-void keyhook(mlx_key_data_t keydata, void* param)
+void keyhook(void* param)
 {
 	t_game *game;
 	
 	game = (t_game *)param;
-	// if (keydata.key ==  MLX_KEY_A && keydata.action == MLX_PRESS)
-	// 	game->controls.left = true;
-	// if (keydata.key ==  MLX_KEY_D && keydata.action == MLX_PRESS)
-	// 	game->controls.right = true;
-	// if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
-	// 	game->controls.up = true;
-	// if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
-	// 	game->controls.down = true;
-	// if (keydata.key ==  MLX_KEY_A && keydata.action == MLX_RELEASE)
-	// 	game->controls.left = false;
-	// if (keydata.key ==  MLX_KEY_D && keydata.action == MLX_RELEASE)
-	// 	game->controls.right = false;
-	// if (keydata.key == MLX_KEY_W && keydata.action == MLX_RELEASE)
-	// 	game->controls.up = false;
-	// if (keydata.key == MLX_KEY_S && keydata.action == MLX_RELEASE)
-	// 	game->controls.down = false;
-	if (keydata.key == MLX_KEY_W)
+	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
 		up(game);
-	if (keydata.key == MLX_KEY_A)
-		left(game);
-	if (keydata.key == MLX_KEY_S)
+	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
 		down(game);
-	if (keydata.key == MLX_KEY_D)
+	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+		left(game);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 		right(game);
 	raycasting(game);
 }
@@ -73,8 +57,8 @@ int main()
 	game.rc.planeY = 0.90; //the 2d raycaster version of camera plane
 	game.mlx = mlx_init(WIDTH, HEIGHT, "dinozaur", TRUE);
 	raycasting(&game);
-	mlx_key_hook(game.mlx, &keyhook, &game);
-	// mlx_loop_hook(game.mlx, game_loop, &game);
+	// mlx_key_hook(game.mlx, &keyhook, &game);
+	mlx_loop_hook(game.mlx, &keyhook, &game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);
 	return (0);
