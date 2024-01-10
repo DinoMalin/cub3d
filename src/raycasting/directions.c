@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 21:45:22 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/09 21:51:24 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/10 16:20:03 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,38 @@
 
 void	left(t_game *game)
 {
-	double	oldDirX = game->rc.dirX;
-	double	oldPlaneX = game->rc.planeX;
+	double	oldDirX = game->rc.dir.x;
+	double	oldPlaneX = game->rc.plane.x;
 
-	game->rc.dirX = game->rc.dirX * cos(ROTATION_SPEED) - game->rc.dirY * sin(ROTATION_SPEED);
-	game->rc.dirY = oldDirX * sin(ROTATION_SPEED) + game->rc.dirY * cos(ROTATION_SPEED);
-	game->rc.planeX = game->rc.planeX * cos(ROTATION_SPEED) - game->rc.planeY * sin(ROTATION_SPEED);
-	game->rc.planeY = oldPlaneX * sin(ROTATION_SPEED) + game->rc.planeY * cos(ROTATION_SPEED);
+	game->rc.dir.x = game->rc.dir.x * cos(ROTATION_SPEED) - game->rc.dir.y * sin(ROTATION_SPEED);
+	game->rc.dir.y = oldDirX * sin(ROTATION_SPEED) + game->rc.dir.y * cos(ROTATION_SPEED);
+	game->rc.plane.x = game->rc.plane.x * cos(ROTATION_SPEED) - game->rc.plane.y * sin(ROTATION_SPEED);
+	game->rc.plane.y = oldPlaneX * sin(ROTATION_SPEED) + game->rc.plane.y * cos(ROTATION_SPEED);
 }
 
 void	right(t_game *game)
 {
-	double	oldDirX = game->rc.dirX;
-	double	oldPlaneX = game->rc.planeX;
+	double	oldDirX = game->rc.dir.x;
+	double	oldPlaneX = game->rc.plane.x;
 
-	game->rc.dirX = game->rc.dirX * cos(-ROTATION_SPEED) - game->rc.dirY * sin(-ROTATION_SPEED);
-	game->rc.dirY = oldDirX * sin(-ROTATION_SPEED) + game->rc.dirY * cos(-ROTATION_SPEED);
-	game->rc.planeX = game->rc.planeX * cos(-ROTATION_SPEED) - game->rc.planeY * sin(-ROTATION_SPEED);
-	game->rc.planeY = oldPlaneX * sin(-ROTATION_SPEED) + game->rc.planeY * cos(-ROTATION_SPEED);
+	game->rc.dir.x = game->rc.dir.x * cos(-ROTATION_SPEED) - game->rc.dir.y * sin(-ROTATION_SPEED);
+	game->rc.dir.y = oldDirX * sin(-ROTATION_SPEED) + game->rc.dir.y * cos(-ROTATION_SPEED);
+	game->rc.plane.x = game->rc.plane.x * cos(-ROTATION_SPEED) - game->rc.plane.y * sin(-ROTATION_SPEED);
+	game->rc.plane.y = oldPlaneX * sin(-ROTATION_SPEED) + game->rc.plane.y * cos(-ROTATION_SPEED);
 }
 
 void	up(t_game *game)
 {
-	if(game->map.map[(int)(game->rc.posX + game->rc.dirX * MOVE_SPEED)][(int)game->rc.posY] != '1')
-		game->rc.posX += game->rc.dirX * MOVE_SPEED;
-	if(game->map.map[(int)game->rc.posX][(int)(game->rc.posY + game->rc.dirY * MOVE_SPEED)] != '1')
-		game->rc.posY += game->rc.dirY * MOVE_SPEED;
+	if(game->map.map[(int)(game->rc.pos.x + game->rc.dir.x * MOVE_SPEED)][(int)game->rc.pos.y] != '1')
+		game->rc.pos.x += game->rc.dir.x * MOVE_SPEED;
+	if(game->map.map[(int)game->rc.pos.x][(int)(game->rc.pos.y + game->rc.dir.y * MOVE_SPEED)] != '1')
+		game->rc.pos.y += game->rc.dir.y * MOVE_SPEED;
 }
 
 void	down(t_game *game)
 {
-	if(game->map.map[(int)(game->rc.posX - game->rc.dirX * MOVE_SPEED)][(int)game->rc.posY] != '1')
-		game->rc.posX -= game->rc.dirX * MOVE_SPEED;
-	if(game->map.map[(int)game->rc.posX][(int)(game->rc.posY - game->rc.dirY * MOVE_SPEED)] != '1')
-		game->rc.posY -= game->rc.dirY * MOVE_SPEED;
+	if(game->map.map[(int)(game->rc.pos.x - game->rc.dir.x * MOVE_SPEED)][(int)game->rc.pos.y] != '1')
+		game->rc.pos.x -= game->rc.dir.x * MOVE_SPEED;
+	if(game->map.map[(int)game->rc.pos.x][(int)(game->rc.pos.y - game->rc.dir.y * MOVE_SPEED)] != '1')
+		game->rc.pos.y -= game->rc.dir.y * MOVE_SPEED;
 }

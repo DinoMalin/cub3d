@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/09 22:18:36 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/10 16:23:20 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,30 @@
 # include "libft.h"
 # include "MLX42.h"
 
+typedef struct	s_double_coordinates
+{
+	double	x;
+	double	y;
+} t_double_coords;
+
+typedef struct	s_int_coordinates
+{
+	int	x;
+	int	y;
+} t_int_coords;
+
 typedef struct	s_raycast
 {
-	double	posX;
-	double	posY;
-	double	dirX;
-	double	dirY;
-	double	planeX;
-	double	planeY;
-	double	cameraX;
-	double	rayDirX;
-	double	rayDirY;
-	int		mapX;
-	int		mapY;
-	double	sideDistX;
-	double	sideDistY;
-	double	deltaDistX;
-	double	deltaDistY;
+	t_double_coords	pos;
+	t_double_coords	dir;
+	t_double_coords	plane;
+	t_double_coords	camera;
+	t_double_coords	rayDir;
+	t_double_coords	sideDist;
+	t_double_coords	deltaDist;
+	t_int_coords	mapPos;
+	t_int_coords	step;
 	double	perpWallDist;
-	int		stepX;
-	int		stepY;
 	int		hit;
 	int		side;
 	int		drawStart;

@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 18:10:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/09 21:34:28 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/10 16:18:18 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,68 +21,68 @@ mlx_image_t	*dda(t_game *game)
 
 	for (int x = 0; x < WIDTH; x++)
 	{
-		game->rc.cameraX = 2 * x / (double)WIDTH - 1;
-		game->rc.rayDirX = game->rc.dirX + game->rc.planeX * game->rc.cameraX;
-		game->rc.rayDirY = game->rc.dirY + game->rc.planeY * game->rc.cameraX;
+		game->rc.camera.x = 2 * x / (double)WIDTH - 1;
+		game->rc.rayDir.x = game->rc.dir.x + game->rc.plane.x * game->rc.camera.x;
+		game->rc.rayDir.y = game->rc.dir.y + game->rc.plane.y * game->rc.camera.x;
 
 		//which box of the map we're in
-		game->rc.mapX = (int)game->rc.posX;
-		game->rc.mapY = (int)game->rc.posY;
+		game->rc.mapPos.x = (int)game->rc.pos.x;
+		game->rc.mapPos.y = (int)game->rc.pos.y;
 
 		//length of ray from one x or y-side to next x or y-side
-		game->rc.deltaDistX = (game->rc.rayDirX == 0) ? 1e30 : fabs(1 / game->rc.rayDirX);
-		game->rc.deltaDistY = (game->rc.rayDirY == 0) ? 1e30 : fabs(1 / game->rc.rayDirY);
+		game->rc.deltaDist.x = (game->rc.rayDir.x == 0) ? 1e30 : fabs(1 / game->rc.rayDir.x);
+		game->rc.deltaDist.y = (game->rc.rayDir.y == 0) ? 1e30 : fabs(1 / game->rc.rayDir.y);
 
 		game->rc.hit = 0;
 
 		//calculate step and initial sideDist
-		if (game->rc.rayDirX < 0)
+		if (game->rc.rayDir.x < 0)
 		{
-			game->rc.stepX = -1;
-			game->rc.sideDistX = (game->rc.posX - game->rc.mapX) * game->rc.deltaDistX;
+			game->rc.step.x = -1;
+			game->rc.sideDist.x = (game->rc.pos.x - game->rc.mapPos.x) * game->rc.deltaDist.x;
 		}
 		else
 		{
-			game->rc.stepX = 1;
-			game->rc.sideDistX = (game->rc.mapX + 1.0 - game->rc.posX) * game->rc.deltaDistX;
+			game->rc.step.x = 1;
+			game->rc.sideDist.x = (game->rc.mapPos.x + 1.0 - game->rc.pos.x) * game->rc.deltaDist.x;
 		}
-		if (game->rc.rayDirY < 0)
+		if (game->rc.rayDir.y < 0)
 		{
-			game->rc.stepY = -1;
-			game->rc.sideDistY = (game->rc.posY - game->rc.mapY) * game->rc.deltaDistY;
+			game->rc.step.y = -1;
+			game->rc.sideDist.y = (game->rc.pos.y - game->rc.mapPos.y) * game->rc.deltaDist.y;
 		}
 		else
 		{
-			game->rc.stepY = 1;
-			game->rc.sideDistY = (game->rc.mapY + 1.0 - game->rc.posY) * game->rc.deltaDistY;
+			game->rc.step.y = 1;
+			game->rc.sideDist.y = (game->rc.mapPos.y + 1.0 - game->rc.pos.y) * game->rc.deltaDist.y;
 		}
 
 		//perform DDA
 		while (game->rc.hit == 0)
 		{
 			//jump to next map square, either in x-direction, or in y-direction
-			if (game->rc.sideDistX < game->rc.sideDistY)
+			if (game->rc.sideDist.x < game->rc.sideDist.y)
 			{
-				game->rc.sideDistX += game->rc.deltaDistX;
-				game->rc.mapX += game->rc.stepX;
+				game->rc.sideDist.x += game->rc.deltaDist.x;
+				game->rc.mapPos.x += game->rc.step.x;
 				game->rc.side = 0;
 			}
 			else
 			{
-				game->rc.sideDistY += game->rc.deltaDistY;
-				game->rc.mapY += game->rc.stepY;
+				game->rc.sideDist.y += game->rc.deltaDist.y;
+				game->rc.mapPos.y += game->rc.step.y;
 				game->rc.side = 1;
 			}
 			//Check if ray has hit a wall
-			if (game->map.map[game->rc.mapX][game->rc.mapY] == '1')
+			if (game->map.map[game->rc.mapPos.x][game->rc.mapPos.y] == '1')
 				game->rc.hit = 1;
 		}
 
 		//Calculate distance projected on camera direction (Euclidean distance would give fisheye effect!)
 		if(game->rc.side == 0)
-			game->rc.perpWallDist = (game->rc.sideDistX - game->rc.deltaDistX);
+			game->rc.perpWallDist = (game->rc.sideDist.x - game->rc.deltaDist.x);
 		else
-			game->rc.perpWallDist = (game->rc.sideDistY - game->rc.deltaDistY);
+			game->rc.perpWallDist = (game->rc.sideDist.y - game->rc.deltaDist.y);
 
 		//Calculate height of line to draw on screen
 		game->rc.lineHeight = (int)(HEIGHT / game->rc.perpWallDist);

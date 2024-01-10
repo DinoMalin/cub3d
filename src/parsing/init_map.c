@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:02:50 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/09 19:46:03 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/10 16:18:56 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	get_starting_position(t_game *game)
 		{
 			if (game->map.map[x][y] == 'P')
 			{
-				game->rc.posX = x;
-				game->rc.posY = y;
+				game->rc.pos.x = x;
+				game->rc.pos.y = y;
 				return ;
 			}
 			y++;
