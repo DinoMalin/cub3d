@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/10 16:16:39 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/10 17:37:50 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void key_loop(void* param)
 	t_game *game;
 	
 	game = (t_game *)param;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_W) || mlx_is_key_down(game->mlx, MLX_KEY_UP))
 		up(game);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_S) || mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
 		down(game);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_A) || mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
 		left(game);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_D) || mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
 		right(game);
 	raycasting(game);
 }
@@ -66,10 +66,7 @@ int main()
 	t_game			game;
 
 	init_map("maps/map.txt", &game);
-	game.rc.dir.x = -0.5;
-	game.rc.dir.y = 0; //initial direction vector
-	game.rc.plane.x = 0;
-	game.rc.plane.y = 0.90; //the 2d raycaster version of camera plane
+	init_raycasting(&game);
 	game.mlx = mlx_init(WIDTH, HEIGHT, "dinozaur", TRUE);
 	raycasting(&game);
 	mlx_key_hook(game.mlx, &keyhook, &game);

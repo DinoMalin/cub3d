@@ -6,11 +6,19 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 18:10:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/10 16:18:18 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/10 17:36:58 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+void	init_raycasting(t_game *game)
+{
+	game->rc.dir.x = -0.5;
+	game->rc.dir.y = 0;
+	game->rc.plane.x = 0;
+	game->rc.plane.y = 0.90;
+}
 
 mlx_image_t	*dda(t_game *game)
 {

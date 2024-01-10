@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/10 16:23:20 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/10 17:37:31 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct	s_raycast
 typedef struct s_map
 {
 	char	**map;
+	
 } t_map;
 
 typedef struct s_controls
@@ -85,6 +86,7 @@ typedef struct	s_game
 int	init_map(char *name, t_game *game);
 
 /* ======== RAYCASTING ======== */
+void	init_raycasting(t_game *game);
 void	raycasting(t_game *game);
 void	fill_image(mlx_image_t *image);
 void	vertical_line(int start_y, int end_y, int x, mlx_image_t *image, uint32_t color);

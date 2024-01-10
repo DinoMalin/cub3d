@@ -22,22 +22,24 @@ OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
 all: $(NAME)
 
 clean :
-	rm -rf $(OBJ_DIR)
+	@rm -rf $(OBJ_DIR)
 
 fclean : clean
-	rm -rf $(NAME)
-	make fclean -C lib
+	@rm -rf $(NAME)
+	@make fclean -C lib
 
 re: fclean all
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) -o $@ $(OBJS) $(LFLAGS)
+	@echo "\033[32m✔ Compilating sources files...\033[37m"
+	@$(CC) -o $@ $(OBJS) $(LFLAGS)
+	@echo "\033[32m✔ Executable created.\033[37m"
 
 $(LIBFT):
-	make -C lib
+	@make -C lib
 
 obj/%.o: src/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY: all clean fclean re bonus
