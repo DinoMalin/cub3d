@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 18:10:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/10 17:36:58 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/12 22:59:20 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,51 @@ void	init_raycasting(t_game *game)
 	game->rc.dir.y = 0;
 	game->rc.plane.x = 0;
 	game->rc.plane.y = 0.90;
+	// game->textures.north_wall = mlx_load_png("../textures/tile32");
+	game->textures.south_wall = mlx_load_png("./textures/cobblestone.png");
+	if (!game->textures.south_wall)
+		ft_printf("error");
+}
+
+void	draw_buffer(t_game *game, mlx_image_t *image)
+{
+	int	x;
+	int	y;
+	int	i;
+
+	y = 0;
+	i = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			mlx_put_pixel(image, x, y, game->rc.screen_buffer[x][y]);
+			x++;
+			// ft_printf("x : %d y :%d\n", x, y);
+		}
+		y++;
+	}
+}
+
+void	clear_buffer(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < WIDTH)
+	{
+		j = 0;
+		while (j < HEIGHT)
+			game->rc.screen_buffer[i][j++] = 0;
+		i++;
+	}
+}
+
+int get_rgba(int r, int g, int b, int a)
+{
+	return (r << 24 | g << 16 | b << 8 | a);
 }
 
 mlx_image_t	*dda(t_game *game)
@@ -25,7 +70,7 @@ mlx_image_t	*dda(t_game *game)
 	mlx_image_t *image;
 	
 	image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	fill_image(image);
+	// fill_image(image);
 
 	for (int x = 0; x < WIDTH; x++)
 	{
@@ -103,11 +148,41 @@ mlx_image_t	*dda(t_game *game)
 		if(game->rc.drawEnd >= HEIGHT)
 			game->rc.drawEnd = HEIGHT - 1;
 
-		uint32_t color = WALL_1;
-		if (game->rc.side == 1)
-			color = WALL_2;
-		vertical_line(game->rc.drawStart, game->rc.drawEnd, x, image, color);
+		// int texNum = game->map.map[game->rc.mapPos.x][game->rc.mapPos.y] - '1';
+		double wallX;
+		if (game->rc.side == 0)
+			wallX = game->rc.pos.y + game->rc.perpWallDist * game->rc.rayDir.y;
+		else
+			wallX = game->rc.pos.x + game->rc.perpWallDist * game->rc.rayDir.x;
+		wallX -= floor(wallX);
+
+		int texX = (int)(wallX * (double)TEXWIDTH);
+		if (game->rc.side == 0 && game->rc.rayDir.x > 0)
+			texX = TEXWIDTH - texX - 1;
+		if (game->rc.side == 1  && game->rc.rayDir.y < 0)
+			texX = TEXWIDTH - texX - 1;
+
+		double	step = 1.0 * TEXHEIGHT / game->rc.lineHeight;
+		double	texPos = (game->rc.drawStart - HEIGHT / 2 + game->rc.lineHeight / 2) * step;
+		for (int y = game->rc.drawStart; y < game->rc.drawEnd; y++)
+		{
+			int texY = (int)texPos & (TEXHEIGHT - 1);
+			texPos += step;
+			uint8_t *color = &game->textures.south_wall->pixels[(TEXHEIGHT * texY + texX) * 4];
+			if (game->rc.side)
+				game->rc.screen_buffer[x][y] = get_rgba(color[0] / 2, color[1] / 2, color[2] / 2, color[3]);
+			else
+				game->rc.screen_buffer[x][y] = get_rgba(color[0], color[1], color[2], color[3]);
+		}
+		// uint32_t color = WALL_1;
+		// if (game->rc.side == 1)
+		// 	color = WALL_2;
+		// vertical_line(game->rc.drawStart, game->rc.drawEnd, x, image, color);
 	}
+	// ft_printf("hello\n");
+	draw_buffer(game, image);
+	clear_buffer(game);
+	// ft_printf("hella\n");
 	return (image);
 }
 

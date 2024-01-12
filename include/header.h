@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/10 17:37:31 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/12 22:54:07 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,28 @@
 # define CEILING 0xc4fffeff
 # define FLOOR 0xcca37cff
 
+# define TEXWIDTH 32
+# define TEXHEIGHT 32
+
+# define SEGFAULT "[1]    843162 segmentation fault (core dumped)  ./cub3D"
+
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
 
 # include "libft.h"
 # include "MLX42.h"
+
+typedef	struct s_textures
+{
+	mlx_texture_t	*floor;
+	mlx_texture_t	*ceiling;
+	mlx_texture_t	*north_wall;
+	mlx_texture_t	*south_wall;
+	mlx_texture_t	*west_wall;
+	mlx_texture_t	*est_wall;
+} t_textures;
+
 
 typedef struct	s_double_coordinates
 {
@@ -53,18 +69,18 @@ typedef struct	s_raycast
 	t_double_coords	deltaDist;
 	t_int_coords	mapPos;
 	t_int_coords	step;
-	double	perpWallDist;
-	int		hit;
-	int		side;
-	int		drawStart;
-	int		drawEnd;
-	int		lineHeight;
+	double			perpWallDist;
+	int				hit;
+	int				side;
+	int				drawStart;
+	int				drawEnd;
+	int				lineHeight;
+	uint32_t		screen_buffer[WIDTH][HEIGHT];
 } t_raycast;
 
 typedef struct s_map
 {
-	char	**map;
-	
+	char		**map;
 } t_map;
 
 typedef struct s_controls
@@ -81,8 +97,10 @@ typedef struct	s_game
 	t_map		map;
 	t_raycast	rc;
 	t_controls	controls;
+	t_textures	textures;
 } t_game;
 
+/* ======== INIT ======== */
 int	init_map(char *name, t_game *game);
 
 /* ======== RAYCASTING ======== */
