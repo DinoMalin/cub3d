@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/12 22:54:07 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/13 02:00:54 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ typedef struct	s_raycast
 	t_double_coords	deltaDist;
 	t_int_coords	mapPos;
 	t_int_coords	step;
+	uint8_t			*color;
 	double			perpWallDist;
+	double			step_texture;
+	double			texPos;
 	int				hit;
 	int				side;
 	int				drawStart;

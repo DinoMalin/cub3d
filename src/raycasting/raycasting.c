@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 18:10:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/12 22:59:20 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/13 02:02:27 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void	init_raycasting(t_game *game)
 	game->rc.plane.x = 0;
 	game->rc.plane.y = 0.90;
 	// game->textures.north_wall = mlx_load_png("../textures/tile32");
-	game->textures.south_wall = mlx_load_png("./textures/cobblestone.png");
+	game->textures.south_wall = mlx_load_png("./textures/plank.png");
+	game->textures.floor = mlx_load_png("./textures/cobblestone.png");
+	game->textures.ceiling = mlx_load_png("./textures/cobblestone.png");
 	if (!game->textures.south_wall)
 		ft_printf("error");
 }
@@ -72,6 +74,58 @@ mlx_image_t	*dda(t_game *game)
 	image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	// fill_image(image);
 
+	//FLOOR CASTING
+	for(int y = 0; y < HEIGHT; y++)
+	{
+		// rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
+		float rayDirX0 = game->rc.dir.x - game->rc.plane.x;
+		float rayDirY0 = game->rc.dir.y - game->rc.plane.y;
+		float rayDirX1 = game->rc.dir.x + game->rc.plane.x;
+		float rayDirY1 = game->rc.dir.y + game->rc.plane.y;
+
+		// Current y position compared to the center of the screen (the horizon)
+		int p = y - HEIGHT / 2;
+
+		// Vertical position of the camera.
+		float posZ = 0.5 * HEIGHT;
+
+		// Horizontal distance from the camera to the floor for the current row.
+		// 0.5 is the z position exactly in the middle between floor and ceiling.
+		float rowDistance = posZ / p;
+
+		// calculate the real world step vector we have to add for each x (parallel to camera plane)
+		// adding step by step avoids multiplications with a weight in the inner loop
+		float floorStepX = rowDistance * (rayDirX1 - rayDirX0) / WIDTH;
+		float floorStepY = rowDistance * (rayDirY1 - rayDirY0) / WIDTH;
+
+		// real world coordinates of the leftmost column. This will be updated as we step to the right.
+		float floorX = game->rc.pos.x + rowDistance * rayDirX0;
+		float floorY = game->rc.pos.y + rowDistance * rayDirY0;
+
+		for(int x = 0; x < WIDTH; ++x)
+		{
+			// the cell coord is simply got from the integer parts of floorX and floorY
+			int cellX = (int)(floorX);
+			int cellY = (int)(floorY);
+
+			// get the texture coordinate from the fractional part
+			int tx = (int)(TEXWIDTH * (floorX - cellX)) & (TEXWIDTH - 1);
+			int ty = (int)(TEXHEIGHT * (floorY - cellY)) & (TEXHEIGHT - 1);
+
+			floorX += floorStepX;
+			floorY += floorStepY;
+
+			// floor
+			game->rc.color = &game->textures.floor->pixels[(TEXWIDTH * ty + tx) * 4];
+			game->rc.screen_buffer[x][y] = get_rgba(game->rc.color[0], game->rc.color[1], game->rc.color[2], game->rc.color[3]);
+
+			//ceiling (symmetrical, at HEIGHT - y - 1 instead of y)
+			game->rc.color = &game->textures.ceiling->pixels[(TEXWIDTH * ty + tx) * 4];
+			game->rc.screen_buffer[x][HEIGHT - y - 1] = get_rgba(game->rc.color[0], game->rc.color[1], game->rc.color[2], game->rc.color[3]);
+		}
+	}
+
+	// WALL CASTING
 	for (int x = 0; x < WIDTH; x++)
 	{
 		game->rc.camera.x = 2 * x / (double)WIDTH - 1;
@@ -162,27 +216,21 @@ mlx_image_t	*dda(t_game *game)
 		if (game->rc.side == 1  && game->rc.rayDir.y < 0)
 			texX = TEXWIDTH - texX - 1;
 
-		double	step = 1.0 * TEXHEIGHT / game->rc.lineHeight;
-		double	texPos = (game->rc.drawStart - HEIGHT / 2 + game->rc.lineHeight / 2) * step;
+		game->rc.step_texture = 1.0 * TEXHEIGHT / game->rc.lineHeight;
+		game->rc.texPos = (game->rc.drawStart - HEIGHT / 2 + game->rc.lineHeight / 2) * game->rc.step_texture;
 		for (int y = game->rc.drawStart; y < game->rc.drawEnd; y++)
 		{
-			int texY = (int)texPos & (TEXHEIGHT - 1);
-			texPos += step;
-			uint8_t *color = &game->textures.south_wall->pixels[(TEXHEIGHT * texY + texX) * 4];
+			int texY = (int)game->rc.texPos & (TEXHEIGHT - 1);
+			game->rc.texPos += game->rc.step_texture;
+			game->rc.color = &game->textures.south_wall->pixels[(TEXHEIGHT * texY + texX) * 4];
 			if (game->rc.side)
-				game->rc.screen_buffer[x][y] = get_rgba(color[0] / 2, color[1] / 2, color[2] / 2, color[3]);
+				game->rc.screen_buffer[x][y] = get_rgba(game->rc.color[0] / 2, game->rc.color[1] / 2, game->rc.color[2] / 2, game->rc.color[3]);
 			else
-				game->rc.screen_buffer[x][y] = get_rgba(color[0], color[1], color[2], color[3]);
+				game->rc.screen_buffer[x][y] = get_rgba(game->rc.color[0], game->rc.color[1], game->rc.color[2], game->rc.color[3]);
 		}
-		// uint32_t color = WALL_1;
-		// if (game->rc.side == 1)
-		// 	color = WALL_2;
-		// vertical_line(game->rc.drawStart, game->rc.drawEnd, x, image, color);
 	}
-	// ft_printf("hello\n");
 	draw_buffer(game, image);
 	clear_buffer(game);
-	// ft_printf("hella\n");
 	return (image);
 }
 

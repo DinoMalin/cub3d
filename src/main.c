@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/11 17:58:09 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/13 00:24:27 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void key_loop(void* param)
 void	end(t_game *game)
 {
 	(void)game;
+	// ft_printf(SEGFAULT);
 	exit(0);
 }
 
