@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 18:10:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/13 02:02:27 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/13 02:10:21 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	init_raycasting(t_game *game)
 	game->rc.plane.x = 0;
 	game->rc.plane.y = 0.90;
 	// game->textures.north_wall = mlx_load_png("../textures/tile32");
-	game->textures.south_wall = mlx_load_png("./textures/plank.png");
-	game->textures.floor = mlx_load_png("./textures/cobblestone.png");
-	game->textures.ceiling = mlx_load_png("./textures/cobblestone.png");
-	if (!game->textures.south_wall)
+	game->textures.north_wall = mlx_load_png("./textures/cobblestone.png");
+	game->textures.floor = mlx_load_png("./textures/plank.png");
+	game->textures.ceiling = mlx_load_png("./textures/plank.png");
+	if (!game->textures.north_wall)
 		ft_printf("error");
 }
 
@@ -74,7 +74,7 @@ mlx_image_t	*dda(t_game *game)
 	image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	// fill_image(image);
 
-	//FLOOR CASTING
+	//FLOOR / CEILING CASTING
 	for(int y = 0; y < HEIGHT; y++)
 	{
 		// rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
@@ -109,18 +109,18 @@ mlx_image_t	*dda(t_game *game)
 			int cellY = (int)(floorY);
 
 			// get the texture coordinate from the fractional part
-			int tx = (int)(TEXWIDTH * (floorX - cellX)) & (TEXWIDTH - 1);
-			int ty = (int)(TEXHEIGHT * (floorY - cellY)) & (TEXHEIGHT - 1);
+			int tx = (int)(game->textures.floor->width * (floorX - cellX)) & (game->textures.floor->width - 1);
+			int ty = (int)(game->textures.floor->height * (floorY - cellY)) & (game->textures.floor->height - 1);
 
 			floorX += floorStepX;
 			floorY += floorStepY;
 
 			// floor
-			game->rc.color = &game->textures.floor->pixels[(TEXWIDTH * ty + tx) * 4];
+			game->rc.color = &game->textures.floor->pixels[(game->textures.floor->width * ty + tx) * 4];
 			game->rc.screen_buffer[x][y] = get_rgba(game->rc.color[0], game->rc.color[1], game->rc.color[2], game->rc.color[3]);
 
 			//ceiling (symmetrical, at HEIGHT - y - 1 instead of y)
-			game->rc.color = &game->textures.ceiling->pixels[(TEXWIDTH * ty + tx) * 4];
+			game->rc.color = &game->textures.ceiling->pixels[(game->textures.floor->width * ty + tx) * 4];
 			game->rc.screen_buffer[x][HEIGHT - y - 1] = get_rgba(game->rc.color[0], game->rc.color[1], game->rc.color[2], game->rc.color[3]);
 		}
 	}
@@ -210,19 +210,19 @@ mlx_image_t	*dda(t_game *game)
 			wallX = game->rc.pos.x + game->rc.perpWallDist * game->rc.rayDir.x;
 		wallX -= floor(wallX);
 
-		int texX = (int)(wallX * (double)TEXWIDTH);
+		int texX = (int)(wallX * (double)game->textures.north_wall->width);
 		if (game->rc.side == 0 && game->rc.rayDir.x > 0)
-			texX = TEXWIDTH - texX - 1;
+			texX = game->textures.north_wall->width - texX - 1;
 		if (game->rc.side == 1  && game->rc.rayDir.y < 0)
-			texX = TEXWIDTH - texX - 1;
+			texX = game->textures.north_wall->width - texX - 1;
 
-		game->rc.step_texture = 1.0 * TEXHEIGHT / game->rc.lineHeight;
+		game->rc.step_texture = 1.0 * game->textures.north_wall->height / game->rc.lineHeight;
 		game->rc.texPos = (game->rc.drawStart - HEIGHT / 2 + game->rc.lineHeight / 2) * game->rc.step_texture;
 		for (int y = game->rc.drawStart; y < game->rc.drawEnd; y++)
 		{
-			int texY = (int)game->rc.texPos & (TEXHEIGHT - 1);
+			int texY = (int)game->rc.texPos & (game->textures.north_wall->height - 1);
 			game->rc.texPos += game->rc.step_texture;
-			game->rc.color = &game->textures.south_wall->pixels[(TEXHEIGHT * texY + texX) * 4];
+			game->rc.color = &game->textures.north_wall->pixels[(game->textures.north_wall->height * texY + texX) * 4];
 			if (game->rc.side)
 				game->rc.screen_buffer[x][y] = get_rgba(game->rc.color[0] / 2, game->rc.color[1] / 2, game->rc.color[2] / 2, game->rc.color[3]);
 			else

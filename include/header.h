@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/13 02:00:54 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/13 02:11:21 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,6 @@
 # define WALL_2 0x419143FF
 # define CEILING 0xc4fffeff
 # define FLOOR 0xcca37cff
-
-# define TEXWIDTH 32
-# define TEXHEIGHT 32
 
 # define SEGFAULT "[1]    843162 segmentation fault (core dumped)  ./cub3D"
 
