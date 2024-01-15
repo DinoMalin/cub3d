@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/13 00:24:27 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/15 12:11:55 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void key_loop(void* param)
 		left(game);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_D) || mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
 		right(game);
-	raycasting(game);
+	process_raycasting(game);
 }
 
 void	end(t_game *game)
@@ -69,7 +69,7 @@ int main()
 	init_map("maps/map.txt", &game);
 	init_raycasting(&game);
 	game.mlx = mlx_init(WIDTH, HEIGHT, "dinozaur", TRUE);
-	raycasting(&game);
+	process_raycasting(&game);
 	mlx_key_hook(game.mlx, &keyhook, &game);
 	mlx_loop_hook(game.mlx, &key_loop, &game);
 	mlx_loop(game.mlx);
