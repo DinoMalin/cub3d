@@ -35,5 +35,3 @@ obj/%.o: src/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-# $(OBJ_DIR):
-# 	@mkdir -p $@

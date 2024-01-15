@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/03 16:05:49 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/05 14:23:06 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int main()
 {
-	// mlx_t			*mlx;
+	// mlx_t		*mlx;
 	// mlx_image_t*	img;
 	
 	// mlx = mlx_init(WIDTH, HEIGHT, "dinozaur", TRUE);
@@ -24,5 +24,16 @@ int main()
 	// mlx_loop(mlx);
 	// mlx_terminate(mlx);
 	// return (0);
-	print_truc();
+	t_map	map;
+	int		i;
+
+	i = -1;
+	if (!init_map("maps/map.txt", &map))
+	{
+		printf("invalid map");
+		return (1);
+	}
+	while (map.map[++i])
+		printf("%s\n", map.map[i]);
+	return (0);
 }

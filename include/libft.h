@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:19:23 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/04 14:53:07 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/05 15:23:42 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,7 +257,7 @@ char	*ft_strjoin(char const *str1, char const *str2);
  @param str2 A string.
  @return A pointer to the new string.
 */
-char	*ft_strjoin_free(char const *str1, char const *str2);
+char	*ft_strjoin_free(char *str1, char *str2);
 
 /**
  @brief Trim all the characters included in a set from the start and the end of
