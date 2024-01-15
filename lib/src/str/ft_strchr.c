@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/03 16:05:49 by jcario           ###   ########.fr       */
+/*   Created: 2023/12/08 21:01:44 by jcario            #+#    #+#             */
+/*   Updated: 2024/01/03 18:11:01 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "libft.h"
 
-int main()
+char	*ft_strchr(const char *str, int search)
 {
-	// mlx_t			*mlx;
-	// mlx_image_t*	img;
-	
-	// mlx = mlx_init(WIDTH, HEIGHT, "dinozaur", TRUE);
-	// img = mlx_new_image(mlx, 256, 128);
-	// ft_memset(img->pixels, 255, img->width * img->height * sizeof(int32_t));
-	// mlx_image_to_window(mlx, img, 0, 0);
-	// mlx_loop(mlx);
-	// mlx_terminate(mlx);
-	// return (0);
-	print_truc();
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == (char)search)
+			return ((char *)(str + i));
+		i++;
+	}
+	if (search == '\0')
+		return ((char *)(str + i));
+	return (NULL);
 }

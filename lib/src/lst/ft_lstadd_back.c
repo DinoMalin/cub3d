@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   header.h                                           :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jcario <jcario@student.42lehavre.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/04 14:47:56 by jcario           ###   ########.fr       */
+/*   Created: 2023/12/09 03:39:29 by jcario            #+#    #+#             */
+/*   Updated: 2023/12/09 04:12:46 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HEADER_H
-# define HEADER_H
+#include "libft.h"
 
-# define WIDTH 512
-# define HEIGHT 512
-
-# include <stdio.h>
-
-# include "libft.h"
-# include "MLX42.h"
-
-typedef struct s_map
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	char	**map;
-} t_map;
-
-#endif
+	if (*lst)
+		ft_lstlast(*lst)->next = new;
+	else
+		*lst = new;
+}

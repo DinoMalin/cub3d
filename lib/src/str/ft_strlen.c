@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   header.h                                           :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jcario <jcario@student.42lehavre.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/04 14:47:56 by jcario           ###   ########.fr       */
+/*   Created: 2023/12/08 19:25:39 by jcario            #+#    #+#             */
+/*   Updated: 2023/12/09 04:18:40 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HEADER_H
-# define HEADER_H
+#include "libft.h"
 
-# define WIDTH 512
-# define HEIGHT 512
-
-# include <stdio.h>
-
-# include "libft.h"
-# include "MLX42.h"
-
-typedef struct s_map
+size_t	ft_strlen(const char *str)
 {
-	char	**map;
-} t_map;
+	size_t	i;
 
-#endif
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}

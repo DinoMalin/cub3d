@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/03 16:05:49 by jcario           ###   ########.fr       */
+/*   Created: 2024/01/03 19:33:50 by jcario            #+#    #+#             */
+/*   Updated: 2024/01/03 19:41:51 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "libft.h"
 
-int main()
+int	ft_strcmp(const char *str1, const char *str2)
 {
-	// mlx_t			*mlx;
-	// mlx_image_t*	img;
-	
-	// mlx = mlx_init(WIDTH, HEIGHT, "dinozaur", TRUE);
-	// img = mlx_new_image(mlx, 256, 128);
-	// ft_memset(img->pixels, 255, img->width * img->height * sizeof(int32_t));
-	// mlx_image_to_window(mlx, img, 0, 0);
-	// mlx_loop(mlx);
-	// mlx_terminate(mlx);
-	// return (0);
-	print_truc();
+	size_t	i;
+
+	i = 0;
+	while (str1[i] && str2[i] && str1[i] == str2[i])
+		i++;
+	return ((unsigned char)str1[i] - (unsigned char)str2[i]);
 }

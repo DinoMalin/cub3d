@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   header.h                                           :+:      :+:    :+:   */
+/*   ft_putunbr_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jcario <jcario@student.42lehavre.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/04 14:47:56 by jcario           ###   ########.fr       */
+/*   Created: 2023/12/09 19:19:15 by jcario            #+#    #+#             */
+/*   Updated: 2023/12/09 19:21:09 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HEADER_H
-# define HEADER_H
+#include "libft.h"
 
-# define WIDTH 512
-# define HEIGHT 512
-
-# include <stdio.h>
-
-# include "libft.h"
-# include "MLX42.h"
-
-typedef struct s_map
+int	ft_putunbr_fd(unsigned int n, int fd)
 {
-	char	**map;
-} t_map;
-
-#endif
+	if (n >= 10)
+		return (ft_putnbr_fd(n / 10, fd) + ft_putnbr_fd(n % 10, fd));
+	else if (n < 10)
+	{
+		ft_putchar_fd(n + '0', fd);
+		return (1);
+	}
+	return (0);
+}

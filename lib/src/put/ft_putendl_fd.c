@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   header.h                                           :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jcario <jcario@student.42lehavre.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/04 14:47:56 by jcario           ###   ########.fr       */
+/*   Created: 2023/12/09 03:19:36 by jcario            #+#    #+#             */
+/*   Updated: 2023/12/09 18:59:50 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HEADER_H
-# define HEADER_H
+#include "libft.h"
 
-# define WIDTH 512
-# define HEIGHT 512
-
-# include <stdio.h>
-
-# include "libft.h"
-# include "MLX42.h"
-
-typedef struct s_map
+int	ft_putendl_fd(char *str, int fd)
 {
-	char	**map;
-} t_map;
-
-#endif
+	return (ft_putstr_fd(str, fd) + ft_putchar_fd('\n', fd));
+}

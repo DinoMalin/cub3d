@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/03 16:05:49 by jcario           ###   ########.fr       */
+/*   Created: 2024/01/03 16:15:55 by jcario            #+#    #+#             */
+/*   Updated: 2024/01/03 16:20:51 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-int main()
-{
-	// mlx_t			*mlx;
-	// mlx_image_t*	img;
-	
-	// mlx = mlx_init(WIDTH, HEIGHT, "dinozaur", TRUE);
-	// img = mlx_new_image(mlx, 256, 128);
-	// ft_memset(img->pixels, 255, img->width * img->height * sizeof(int32_t));
-	// mlx_image_to_window(mlx, img, 0, 0);
-	// mlx_loop(mlx);
-	// mlx_terminate(mlx);
-	// return (0);
-	print_truc();
-}
+// int	valid_extension(char *str)
+// {
+// 	int	i;
+
+// 	while (str[i])
+// 		i++;
+// 	i -= ft_strlen(".cub");
+// 	if (i < 0)
+// 		return (FALSE);
+// 	return !ft_strncmp(".cub", );
+// }

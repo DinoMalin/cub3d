@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   header.h                                           :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jcario <jcario@student.42lehavre.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/04 14:47:56 by jcario           ###   ########.fr       */
+/*   Created: 2023/12/09 03:35:24 by jcario            #+#    #+#             */
+/*   Updated: 2023/12/09 04:13:27 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HEADER_H
-# define HEADER_H
+#include "libft.h"
 
-# define WIDTH 512
-# define HEIGHT 512
-
-# include <stdio.h>
-
-# include "libft.h"
-# include "MLX42.h"
-
-typedef struct s_map
+int	ft_lstsize(t_list *lst)
 {
-	char	**map;
-} t_map;
+	int	result;
 
-#endif
+	result = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		result++;
+	}
+	return (result);
+}

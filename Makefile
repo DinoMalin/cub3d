@@ -12,7 +12,9 @@ LFLAGS =	-Llib \
 
 SRC_DIR = src/
 OBJ_DIR = obj/
-FILES = main
+FILES =	main \
+		parsing/get_map parsing/utils_parsing
+
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
 
@@ -20,7 +22,6 @@ all: $(NAME)
 
 clean :
 	rm -rf $(OBJ_DIR)
-	make fclean -C lib
 
 fclean : clean
 	rm -rf $(NAME)
@@ -28,16 +29,14 @@ fclean : clean
 
 re: fclean all
 
-$(NAME): $(OBJ_DIR) $(OBJS) $(LIBFT)
+$(NAME): $(OBJS) $(LIBFT)
 	$(CC) -o $@ $(OBJS) $(LFLAGS)
 
 $(LIBFT):
 	make -C lib
 
-$(OBJ_DIR):
-	mkdir $@
-
 obj/%.o: src/%.c
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY: all clean fclean re bonus
