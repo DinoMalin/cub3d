@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/15 12:11:55 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/15 18:10:51 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void keyhook(mlx_key_data_t keydata, void* param)
 
 int main()
 {
-	t_game			game;
+	static t_game			game = {};
 
 	init_map("maps/map.txt", &game);
 	init_raycasting(&game);

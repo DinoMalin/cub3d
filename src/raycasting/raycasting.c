@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 18:10:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/15 13:08:50 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/15 18:09:21 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void	walls_casting(t_game *game)
 	while (++x < WIDTH)
 	{
 		init_walls_casting(x, game);
-		while (game->rc.hit == 0)
+		while (!game->rc.hit)
 		{
-			game->rc.side = (game->rc.sideDist.x < game->rc.sideDist.y);
-			if (game->rc.side)
+			game->rc.side = !(game->rc.sideDist.x < game->rc.sideDist.y);
+			if (!game->rc.side)
 			{
 				game->rc.sideDist.x += game->rc.deltaDist.x;
 				game->rc.mapPos.x += game->rc.step.x;

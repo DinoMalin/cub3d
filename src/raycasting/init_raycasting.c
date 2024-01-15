@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 21:29:46 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/15 13:09:31 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/15 18:12:47 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,13 @@ void	init_raycasting(t_game *game)
 	game->rc.plane.x = 0;
 	game->rc.plane.y = 0.90;
 	game->textures.north_wall = mlx_load_png("./textures/cobblestone.png");
-	game->textures.floor = mlx_load_png("./textures/plank.png");
+	game->textures.floor = mlx_load_png("./textures/bedrock.png");
 	game->textures.ceiling = mlx_load_png("./textures/plank.png");
+	game->textures.sword = mlx_load_png("./textures/sword.png");
+	ft_printf("%d", game->textures.sword->height);
+	game->textures.sword_img = mlx_texture_to_image(game->mlx, game->textures.sword);
+	ft_printf("2");
+	mlx_image_to_window(game->mlx, game->textures.sword_img, WIDTH - game->textures.sword->width, HEIGHT - game->textures.sword->height);
 	if (!game->textures.north_wall)
 		ft_printf("error");
 }

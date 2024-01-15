@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:31:10 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/15 13:09:31 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/15 17:03:10 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	get_rgba(int r, int g, int b, int a)
 
 void	calculate_texture(t_game *game)
 {
-	if (game->rc.side)
+	if (!game->rc.side)
 		game->rc.perpWallDist = (game->rc.sideDist.x - game->rc.deltaDist.x);
 	else
 		game->rc.perpWallDist = (game->rc.sideDist.y - game->rc.deltaDist.y);
@@ -66,15 +66,15 @@ void	calculate_texture(t_game *game)
 	game->rc.drawEnd = game->rc.drawStart + game->rc.lineHeight;
 	if (game->rc.drawEnd >= HEIGHT)
 		game->rc.drawEnd = HEIGHT - 1;
-	if (game->rc.side)
+	if (!game->rc.side)
 		game->rc.wallX = game->rc.pos.y + game->rc.perpWallDist * game->rc.ray.y;
 	else
 		game->rc.wallX = game->rc.pos.x + game->rc.perpWallDist * game->rc.ray.x;
 	game->rc.wallX -= floor(game->rc.wallX);
 	game->rc.texX = (int)(game->rc.wallX * (double)game->textures.north_wall->width);
-	if (game->rc.side && game->rc.ray.x > 0)
+	if (!game->rc.side && game->rc.ray.x > 0)
 		game->rc.texX = game->textures.north_wall->width - game->rc.texX - 1;
-	if (game->rc.side == 1  && game->rc.ray.y < 0)
+	if (game->rc.side  && game->rc.ray.y < 0)
 		game->rc.texX = game->textures.north_wall->width - game->rc.texX - 1;
 	game->rc.step_texture = 1.0 * game->textures.north_wall->height / game->rc.lineHeight;
 	game->rc.texPos = (game->rc.drawStart - HEIGHT / 2 + game->rc.lineHeight / 2) * game->rc.step_texture;
