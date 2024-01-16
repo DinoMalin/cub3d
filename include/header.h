@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/15 17:27:39 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/16 13:08:43 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # define HEIGHT 675
 # define MOVE_SPEED 0.08
 # define ROTATION_SPEED 0.05
+
+# define QUARTER_CIRCLE 1.570796327
 
 # define WALL_1 0x73FF75FF
 # define WALL_2 0x419143FF
@@ -32,6 +34,13 @@
 # include "libft.h"
 # include "MLX42.h"
 
+typedef enum {
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST
+} t_direction;
+
 typedef	struct s_textures
 {
 	mlx_texture_t	*floor;
@@ -42,6 +51,8 @@ typedef	struct s_textures
 	mlx_texture_t	*est_wall;
 	mlx_texture_t	*sword;
 	mlx_image_t		*sword_img;
+	mlx_texture_t	*hotbar;
+	mlx_image_t		*hotbar_img;
 } t_textures;
 
 
@@ -102,7 +113,8 @@ typedef struct	s_raycast
 
 typedef struct s_map
 {
-	char		**map;
+	char	**map;
+	char	starting_direction;
 } t_map;
 
 typedef struct s_controls
@@ -123,10 +135,11 @@ typedef struct	s_game
 } t_game;
 
 /* ======== INIT ======== */
-int	init_map(char *name, t_game *game);
+int		init_map(char *name, t_game *game);
+void	init_raycasting(t_game *game);
+void	get_starting_direction(t_game *game);
 
 /* ======== RAYCASTING ======== */
-void	init_raycasting(t_game *game);
 void	process_raycasting(t_game *game);
 
 void	init_raycasting(t_game *game);
@@ -139,10 +152,12 @@ void	draw_buffer(t_game *game, mlx_image_t *image);
 void	clear_buffer(t_game *game);
 int		get_rgba(int r, int g, int b, int a);
 
-void	left(t_game *game);
-void	right(t_game *game);
+void	left(t_game *game, double rotation_angle);
+void	right(t_game *game, double rotation_angle);
 void	up(t_game *game);
 void	down(t_game *game);
+
+/* ======== PARSING ======== */
 
 
 #endif

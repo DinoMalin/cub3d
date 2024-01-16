@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:02:50 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/10 16:18:56 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/16 11:51:57 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,11 @@ void	get_starting_position(t_game *game)
 		y = 0;
 		while (game->map.map[x][y])
 		{
-			if (game->map.map[x][y] == 'P')
+			if (ft_strchr("NSEW", game->map.map[x][y]))
 			{
 				game->rc.pos.x = x;
 				game->rc.pos.y = y;
+				game->map.starting_direction = game->map.map[x][y];
 				return ;
 			}
 			y++;

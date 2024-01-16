@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 18:10:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/15 18:09:21 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/16 12:20:32 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,6 @@ void	process_raycasting(t_game *game)
 	draw_buffer(game, current_img);
 	clear_buffer(game);
 	mlx_image_to_window(game->mlx, current_img, 0, 0);
+	mlx_set_instance_depth(current_img->instances, 1);
 	count++;
 }
