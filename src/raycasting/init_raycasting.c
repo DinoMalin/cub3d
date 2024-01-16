@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 21:29:46 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/16 13:18:43 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/16 18:14:11 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,21 @@ void	init_raycasting(t_game *game)
 	game->rc.plane.x = 0;
 	game->rc.plane.y = 0.90;
 	get_starting_direction(game);
-	game->textures.north_wall = mlx_load_png("./textures/cobblestone.png");
-	game->textures.floor = mlx_load_png("./textures/bedrock.png");
-	game->textures.ceiling = mlx_load_png("./textures/plank.png");
+	game->textures.north_wall = mlx_load_png("./textures/plank.png");
+	game->textures.floor = mlx_load_png("./textures/cobblestone.png");
+	game->textures.ceiling = mlx_load_png("./textures/sky.png");
 	game->textures.sword = mlx_load_png("./textures/sword.png");
 	game->textures.sword_img = mlx_texture_to_image(game->mlx, game->textures.sword);
 	game->textures.hotbar = mlx_load_png("./textures/hotbar.png");
 	game->textures.hotbar_img = mlx_texture_to_image(game->mlx, game->textures.hotbar);
+	game->textures.cursor = mlx_load_png("./textures/cross_4.png");
+	game->textures.cursor_img = mlx_texture_to_image(game->mlx, game->textures.cursor);
 	mlx_image_to_window(game->mlx, game->textures.sword_img, WIDTH - game->textures.sword->width / 1.5, HEIGHT - game->textures.sword->height);
-	mlx_image_to_window(game->mlx, game->textures.hotbar_img, 0, 0);
-	mlx_set_instance_depth(game->textures.sword_img->instances, 9);
+	mlx_image_to_window(game->mlx, game->textures.hotbar_img, WIDTH / 2 - game->textures.hotbar->width / 2, HEIGHT - game->textures.hotbar->height);
+	mlx_image_to_window(game->mlx, game->textures.cursor_img, WIDTH / 2 - game->textures.cursor->width / 2, HEIGHT / 2 - game->textures.cursor->height / 2);
+	mlx_set_instance_depth(game->textures.sword_img->instances, 10);
 	mlx_set_instance_depth(game->textures.hotbar_img->instances, 10);
+	mlx_set_instance_depth(game->textures.cursor_img->instances, 11);
 }
 
 void	init_floor_ceiling_casting(int y, t_game *game)

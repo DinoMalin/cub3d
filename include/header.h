@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/16 13:08:43 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/16 17:35:45 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define MOVE_SPEED 0.08
 # define ROTATION_SPEED 0.05
 
-# define QUARTER_CIRCLE 1.570796327
+# define PI	3.141592653
 
 # define WALL_1 0x73FF75FF
 # define WALL_2 0x419143FF
@@ -53,6 +53,8 @@ typedef	struct s_textures
 	mlx_image_t		*sword_img;
 	mlx_texture_t	*hotbar;
 	mlx_image_t		*hotbar_img;
+	mlx_texture_t	*cursor;
+	mlx_image_t		*cursor_img;
 } t_textures;
 
 

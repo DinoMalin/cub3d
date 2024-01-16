@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 21:45:22 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/16 11:57:27 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/16 13:43:49 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	get_starting_direction(t_game *game)
 	if (game->map.starting_direction == 'N')
 		return ;
 	else if (game->map.starting_direction == 'S')
-		right(game, QUARTER_CIRCLE * 2);
+		right(game, PI);
 	else if (game->map.starting_direction == 'E')
-		right(game, QUARTER_CIRCLE);
+		right(game, PI / 2);
 	else if (game->map.starting_direction == 'W')
-		left(game, QUARTER_CIRCLE);
+		left(game, PI / 2);
 }
