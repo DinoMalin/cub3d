@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 21:29:46 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/16 18:14:11 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/16 18:25:18 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	init_raycasting(t_game *game)
 	game->textures.sword_img = mlx_texture_to_image(game->mlx, game->textures.sword);
 	game->textures.hotbar = mlx_load_png("./textures/hotbar.png");
 	game->textures.hotbar_img = mlx_texture_to_image(game->mlx, game->textures.hotbar);
-	game->textures.cursor = mlx_load_png("./textures/cross_4.png");
+	game->textures.cursor = mlx_load_png("./textures/cross.png");
 	game->textures.cursor_img = mlx_texture_to_image(game->mlx, game->textures.cursor);
 	mlx_image_to_window(game->mlx, game->textures.sword_img, WIDTH - game->textures.sword->width / 1.5, HEIGHT - game->textures.sword->height);
 	mlx_image_to_window(game->mlx, game->textures.hotbar_img, WIDTH / 2 - game->textures.hotbar->width / 2, HEIGHT - game->textures.hotbar->height);
