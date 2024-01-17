@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/17 11:42:20 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/17 12:09:54 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define HEIGHT 675
 # define MOVE_SPEED 0.08
 # define ROTATION_SPEED 0.05
+# define SENSIBILITY 0.08
 
 # define PI	3.141592653
 

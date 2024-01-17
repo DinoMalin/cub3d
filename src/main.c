@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/17 11:50:26 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/17 12:10:29 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,21 @@
 # define mapWidth 24
 # define mapHeight 24
 
-void key_loop(void* param)
+void	mouse(t_game *game)
+{
+	int	x;
+	int	y;
+	
+	mlx_get_mouse_pos(game->mlx, &x, &y);
+	if (x > WIDTH / 2)
+		rotate_right(game, SENSIBILITY);
+	else if (x < WIDTH / 2)
+		rotate_left(game, SENSIBILITY);
+	if (x != WIDTH / 2)
+		mlx_set_mouse_pos(game->mlx, WIDTH / 2, HEIGHT / 2);
+}
+
+void	key_loop(void* param)
 {
 	t_game *game;
 	
@@ -32,6 +46,7 @@ void key_loop(void* param)
 		rotate_left(game, ROTATION_SPEED);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
 		rotate_right(game, ROTATION_SPEED);
+	mouse(game);
 	process_raycasting(game);
 }
 
@@ -57,7 +72,7 @@ void	end(t_game *game)
 	exit(0);
 }
 
-void keyhook(mlx_key_data_t keydata, void* param)
+void	keyhook(mlx_key_data_t keydata, void* param)
 {
 	t_game *game;
 	
@@ -72,10 +87,12 @@ int main()
 
 	game.mlx = mlx_init(WIDTH, HEIGHT, "dinozaur", TRUE);
 	init_map("maps/map.txt", &game);
+	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
 	init_raycasting(&game);
 	process_raycasting(&game);
 	mlx_key_hook(game.mlx, &keyhook, &game);
 	mlx_loop_hook(game.mlx, &key_loop, &game);
+	// mlx_mouse_hook(game.mlx, &mousehook, &game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);
 	return (0);
