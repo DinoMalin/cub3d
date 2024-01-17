@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/16 19:32:28 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/17 11:50:26 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,14 @@ void key_loop(void* param)
 		up(game);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_S) || mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
 		down(game);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_A) || mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
-		left(game, ROTATION_SPEED);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_D) || mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
-		right(game, ROTATION_SPEED);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+		left(game);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+		right(game);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+		rotate_left(game, ROTATION_SPEED);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+		rotate_right(game, ROTATION_SPEED);
 	process_raycasting(game);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/16 17:35:45 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/17 11:42:20 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,20 +119,11 @@ typedef struct s_map
 	char	starting_direction;
 } t_map;
 
-typedef struct s_controls
-{
-	int	left;
-	int	right;
-	int	up;
-	int	down;
-} t_controls;
-
 typedef struct	s_game
 {
 	mlx_t		*mlx;
 	t_map		map;
 	t_raycast	rc;
-	t_controls	controls;
 	t_textures	textures;
 } t_game;
 
@@ -154,10 +145,12 @@ void	draw_buffer(t_game *game, mlx_image_t *image);
 void	clear_buffer(t_game *game);
 int		get_rgba(int r, int g, int b, int a);
 
-void	left(t_game *game, double rotation_angle);
-void	right(t_game *game, double rotation_angle);
+void	rotate_left(t_game *game, double rotation_angle);
+void	rotate_right(t_game *game, double rotation_angle);
 void	up(t_game *game);
 void	down(t_game *game);
+void	right(t_game *game);
+void	left(t_game *game);
 
 /* ======== PARSING ======== */
 

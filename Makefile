@@ -14,7 +14,7 @@ SRC_DIR = src/
 OBJ_DIR = obj/
 FILES =	main \
 		parsing/init_map \
-		raycasting/raycasting raycasting/init_raycasting raycasting/utils_buffer raycasting/directions
+		raycasting/raycasting raycasting/init_raycasting raycasting/utils_buffer raycasting/directions raycasting/rotate
 
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
