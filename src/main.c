@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/18 12:41:33 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/18 19:44:08 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,21 +81,29 @@ void	keyhook(mlx_key_data_t keydata, void* param)
 		end(game);
 }
 
-int main()
+int main(int ac, char **av)
 {
 	static t_game	game = {};
-
-	// game.mlx = mlx_init(WIDTH, HEIGHT, "dinozaur", TRUE);
-	init_map("maps/map.txt", &game);
-	// mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
-	// init_raycasting(&game);
-	// process_raycasting(&game);
-	// mlx_key_hook(game.mlx, &keyhook, &game);
-	// mlx_loop_hook(game.mlx, &key_loop, &game);
-	// // mlx_mouse_hook(game.mlx, &mousehook, &game);
-	// mlx_loop(game.mlx);
-	// mlx_terminate(game.mlx);
-	get_textures(&game, game.map.map);
+	if (ac != 2)
+	{
+		ft_putstr_fd("Error : No map.\n", 2);
+		return (0);
+	}
+	init_map(av[1], &game);
+	for (int i = 0; game.map.map[i]; i++)
+	{
+		ft_printf("%s\n", game.map.map[i]);
+	}
+	if (!is_valid(&game, game.map.map))
+		return (0);
+	game.mlx = mlx_init(WIDTH, HEIGHT, "dinozaur", TRUE);
+	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
+	init_raycasting(&game);
+	process_raycasting(&game);
+	mlx_key_hook(game.mlx, &keyhook, &game);
+	mlx_loop_hook(game.mlx, &key_loop, &game);
+	mlx_loop(game.mlx);
+	mlx_terminate(game.mlx);
 	printf("NO : %s\n", game.map.north_texture);
 	printf("SO : %s\n", game.map.south_texture);
 	printf("EA : %s\n", game.map.east_texture);

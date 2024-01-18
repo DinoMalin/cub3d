@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/18 12:39:36 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/18 19:43:12 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,11 @@ void	left(t_game *game);
 /* ======== PARSING ======== */
 int		valid_extension(char *str);
 int		is_closed(char **map);
-char	*extract_texture(char *line);
-int		get_textures(t_game *game, char	**map);
+void	extract_textures(t_game *game, char	*line);
+int		forbidden_character(char **map);
+int		wrong_starting_pos(char **map);
+int		is_valid(t_game *game, char **map);
+int		is_map(char *line);
+int		textures_defined(t_game *game);
 
 #endif
