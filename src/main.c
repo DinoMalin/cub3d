@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/17 12:10:29 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/17 15:48:13 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,16 @@ int main()
 {
 	static t_game	game = {};
 
-	game.mlx = mlx_init(WIDTH, HEIGHT, "dinozaur", TRUE);
+	// game.mlx = mlx_init(WIDTH, HEIGHT, "dinozaur", TRUE);
 	init_map("maps/map.txt", &game);
-	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
-	init_raycasting(&game);
-	process_raycasting(&game);
-	mlx_key_hook(game.mlx, &keyhook, &game);
-	mlx_loop_hook(game.mlx, &key_loop, &game);
-	// mlx_mouse_hook(game.mlx, &mousehook, &game);
-	mlx_loop(game.mlx);
-	mlx_terminate(game.mlx);
+	// mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
+	// init_raycasting(&game);
+	// process_raycasting(&game);
+	// mlx_key_hook(game.mlx, &keyhook, &game);
+	// mlx_loop_hook(game.mlx, &key_loop, &game);
+	// // mlx_mouse_hook(game.mlx, &mousehook, &game);
+	// mlx_loop(game.mlx);
+	// mlx_terminate(game.mlx);
+	printf("%s", is_closed(game.map.map) ? "TRUE" : "FALSE");
 	return (0);
 }

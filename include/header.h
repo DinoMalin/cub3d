@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/17 12:09:54 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/18 11:56:39 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,10 @@ typedef struct s_map
 {
 	char	**map;
 	char	starting_direction;
+	char	*north_texture;
+	char	*south_texture;
+	char	*east_texture;
+	char	*west_texture;
 } t_map;
 
 typedef struct	s_game
@@ -132,6 +136,10 @@ typedef struct	s_game
 int		init_map(char *name, t_game *game);
 void	init_raycasting(t_game *game);
 void	get_starting_direction(t_game *game);
+
+
+/* ======== UTILS ======== */
+void	end(t_game *game);
 
 /* ======== RAYCASTING ======== */
 void	process_raycasting(t_game *game);
@@ -154,6 +162,7 @@ void	right(t_game *game);
 void	left(t_game *game);
 
 /* ======== PARSING ======== */
-
+int	valid_extension(char *str);
+int	is_closed(char **map);
 
 #endif
