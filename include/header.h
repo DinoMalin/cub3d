@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/18 11:56:39 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/18 12:39:36 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef	struct s_textures
 	mlx_texture_t	*north_wall;
 	mlx_texture_t	*south_wall;
 	mlx_texture_t	*west_wall;
-	mlx_texture_t	*est_wall;
+	mlx_texture_t	*east_wall;
 	mlx_texture_t	*sword;
 	mlx_image_t		*sword_img;
 	mlx_texture_t	*hotbar;
@@ -122,6 +122,8 @@ typedef struct s_map
 	char	*south_texture;
 	char	*east_texture;
 	char	*west_texture;
+	char	*floor_texture;
+	char	*ceiling_texture;
 } t_map;
 
 typedef struct	s_game
@@ -140,6 +142,8 @@ void	get_starting_direction(t_game *game);
 
 /* ======== UTILS ======== */
 void	end(t_game *game);
+int		size_matrix(char **matrix);
+void	free_matrix(char **matrix);
 
 /* ======== RAYCASTING ======== */
 void	process_raycasting(t_game *game);
@@ -162,7 +166,9 @@ void	right(t_game *game);
 void	left(t_game *game);
 
 /* ======== PARSING ======== */
-int	valid_extension(char *str);
-int	is_closed(char **map);
+int		valid_extension(char *str);
+int		is_closed(char **map);
+char	*extract_texture(char *line);
+int		get_textures(t_game *game, char	**map);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/17 15:48:13 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/18 12:41:33 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,12 @@ int main()
 	// // mlx_mouse_hook(game.mlx, &mousehook, &game);
 	// mlx_loop(game.mlx);
 	// mlx_terminate(game.mlx);
-	printf("%s", is_closed(game.map.map) ? "TRUE" : "FALSE");
+	get_textures(&game, game.map.map);
+	printf("NO : %s\n", game.map.north_texture);
+	printf("SO : %s\n", game.map.south_texture);
+	printf("EA : %s\n", game.map.east_texture);
+	printf("WE : %s\n", game.map.west_texture);
+	printf("F : %s\n", game.map.floor_texture);
+	printf("C : %s\n", game.map.ceiling_texture);
 	return (0);
 }
