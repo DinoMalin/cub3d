@@ -1,4 +1,4 @@
-NO north
+NO ./textures/plank.png
 
 SO south
 
@@ -7,11 +7,11 @@ SO south
 EA east
 WE west
 
-F floor
+F ./textures/cobblestone.png
 
 
 
-C ceiling
+C ./textures/sky.png
 
 11111111111111111111111111111111111
 110001111111111111111111111111111111111111

@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/18 19:44:08 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/19 15:37:34 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,16 @@ void	end(t_game *game)
 	while (game->map.map[++i])
 		free(game->map.map[i]);
 	free(game->map.map);
-	mlx_delete_texture(game->textures.ceiling);
-	mlx_delete_texture(game->textures.floor);
-	mlx_delete_texture(game->textures.sword);
-	mlx_delete_texture(game->textures.cursor);
-	mlx_delete_texture(game->textures.hotbar);
-	mlx_delete_image(game->mlx, game->textures.sword_img);
-	mlx_delete_image(game->mlx, game->textures.cursor_img);
-	mlx_delete_image(game->mlx, game->textures.hotbar_img);
-	mlx_delete_texture(game->textures.north_wall);
-	mlx_terminate(game->mlx);
+	// mlx_delete_texture(game->textures.ceiling);
+	// mlx_delete_texture(game->textures.floor);
+	// mlx_delete_texture(game->textures.sword);
+	// mlx_delete_texture(game->textures.cursor);
+	// mlx_delete_texture(game->textures.hotbar);
+	// mlx_delete_image(game->mlx, game->textures.sword_img);
+	// mlx_delete_image(game->mlx, game->textures.cursor_img);
+	// mlx_delete_image(game->mlx, game->textures.hotbar_img);
+	// mlx_delete_texture(game->textures.north_wall);
+	// mlx_terminate(game->mlx);
 	// (void)game;
 	exit(0);
 }
@@ -90,10 +90,6 @@ int main(int ac, char **av)
 		return (0);
 	}
 	init_map(av[1], &game);
-	for (int i = 0; game.map.map[i]; i++)
-	{
-		ft_printf("%s\n", game.map.map[i]);
-	}
 	if (!is_valid(&game, game.map.map))
 		return (0);
 	game.mlx = mlx_init(WIDTH, HEIGHT, "dinozaur", TRUE);
@@ -104,11 +100,5 @@ int main(int ac, char **av)
 	mlx_loop_hook(game.mlx, &key_loop, &game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);
-	printf("NO : %s\n", game.map.north_texture);
-	printf("SO : %s\n", game.map.south_texture);
-	printf("EA : %s\n", game.map.east_texture);
-	printf("WE : %s\n", game.map.west_texture);
-	printf("F : %s\n", game.map.floor_texture);
-	printf("C : %s\n", game.map.ceiling_texture);
 	return (0);
 }

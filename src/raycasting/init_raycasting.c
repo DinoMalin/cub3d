@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 21:29:46 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/17 11:48:49 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/19 15:35:50 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ void	init_raycasting(t_game *game)
 	game->rc.plane.x = 0;
 	game->rc.plane.y = 0.90;
 	get_starting_direction(game);
-	game->textures.north_wall = mlx_load_png("./textures/plank.png");
-	game->textures.floor = mlx_load_png("./textures/cobblestone.png");
-	game->textures.ceiling = mlx_load_png("./textures/sky.png");
+	game->textures.north_wall = mlx_load_png(game->map.north_texture);
+	game->textures.floor = mlx_load_png(game->map.floor_texture);
+	game->textures.ceiling = mlx_load_png(game->map.ceiling_texture);
+	if (!game->textures.north_wall || !game->textures.ceiling || !game->map.floor_texture)
+		end(game);
 	game->textures.sword = mlx_load_png("./textures/sword.png");
 	game->textures.sword_img = mlx_texture_to_image(game->mlx, game->textures.sword);
 	game->textures.hotbar = mlx_load_png("./textures/hotbar.png");
