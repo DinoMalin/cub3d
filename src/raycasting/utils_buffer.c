@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:31:10 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/19 17:06:49 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/19 17:46:49 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ void	calculate_texture(t_game *game)
 	else
 		game->rc.wallX = game->rc.pos.x + game->rc.perpWallDist * game->rc.ray.x;
 	game->rc.wallX -= floor(game->rc.wallX);
-	game->rc.texX = (int)(game->rc.wallX * (double)game->textures.textures[game->rc.side]->width);
+	game->rc.texX = (int)(game->rc.wallX * (double)game->textures.textures[game->rc.tex_num]->width);
 	if (!game->rc.side && game->rc.ray.x > 0)
-		game->rc.texX = game->textures.textures[game->rc.side]->width - game->rc.texX - 1;
+		game->rc.texX = game->textures.textures[game->rc.tex_num]->width - game->rc.texX - 1;
 	if (game->rc.side && game->rc.ray.y < 0)
-		game->rc.texX = game->textures.textures[game->rc.side]->width - game->rc.texX - 1;
-	game->rc.step_texture = 1.0 * game->textures.textures[game->rc.side]->height / game->rc.lineHeight;
+		game->rc.texX = game->textures.textures[game->rc.tex_num]->width - game->rc.texX - 1;
+	game->rc.step_texture = 1.0 * game->textures.textures[game->rc.tex_num]->height / game->rc.lineHeight;
 	game->rc.texPos = (game->rc.drawStart - HEIGHT / 2 + game->rc.lineHeight / 2) * game->rc.step_texture;
 }
 
@@ -88,12 +88,9 @@ void	draw_texture(int x, t_game *game)
 	(void)x;
 	while (++y < game->rc.drawEnd)
 	{
-		int texY = (int)game->rc.texPos & (game->textures.textures[game->rc.side]->height - 1);
+		int texY = (int)game->rc.texPos & (game->textures.textures[game->rc.tex_num]->height - 1);
 		game->rc.texPos += game->rc.step_texture;
-		game->rc.color = &game->textures.textures[game->rc.side]->pixels[(game->textures.textures[game->rc.side]->height * texY + game->rc.texX) * 4];
+		game->rc.color = &game->textures.textures[game->rc.tex_num]->pixels[(game->textures.textures[game->rc.tex_num]->height * texY + game->rc.texX) * 4];
 		game->rc.screen_buffer[x][y] = get_rgba(game->rc.color[0], game->rc.color[1], game->rc.color[2], game->rc.color[3]);
-		// if (game->rc.side)
-		// 	game->rc.screen_buffer[x][y] = get_rgba(game->rc.color[0] / 2, game->rc.color[1] / 2, game->rc.color[2] / 2, game->rc.color[3]);
-		// else
 	}
 }

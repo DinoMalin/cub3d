@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/19 16:56:15 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/19 17:51:07 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,6 @@ typedef	struct s_textures
 {
 	mlx_texture_t	*floor;
 	mlx_texture_t	*ceiling;
-	mlx_texture_t	*north_wall;
-	mlx_texture_t	*south_wall;
-	mlx_texture_t	*west_wall;
-	mlx_texture_t	*east_wall;
 	mlx_texture_t	*textures[4];
 	mlx_texture_t	*sword;
 	mlx_image_t		*sword_img;
@@ -100,6 +96,7 @@ typedef struct	s_raycast
 	int				lineHeight;
 	double			wallX;
 	int				texX;
+	int				tex_num;
 	/* === FLOOR AND CEILING CASTING === */
 	t_double_coords	ray0;
 	t_double_coords	ray1;

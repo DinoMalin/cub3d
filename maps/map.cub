@@ -1,10 +1,10 @@
 NO ./textures/plank.png
 
-SO south
+SO ./textures/diamond.png
 
 
 
-EA east
+EA ./textures/diamond_2.png
 WE ./textures/plank_2.png
 
 F ./textures/cobblestone.png

@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 18:10:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/16 19:10:01 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/19 17:49:42 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,19 @@ void	floor_ceiling_casting(t_game *game)
 	}
 }
 
+void	get_adequate_texture(t_game *game)
+{
+	game->rc.side = !(game->rc.sideDist.x < game->rc.sideDist.y);
+	if (game->rc.side == 0 && game->rc.ray.x >= 0)
+		game->rc.tex_num = 0;
+	else if (game->rc.side == 0 && game->rc.ray.x < 0)
+		game->rc.tex_num = 1;
+	else if (game->rc.side == 1 && game->rc.ray.y >= 0)
+		game->rc.tex_num = 2;
+	else if (game->rc.side == 1 && game->rc.ray.y < 0)
+		game->rc.tex_num = 3;
+}
+
 void	walls_casting(t_game *game)
 {
 	int	x;
@@ -48,7 +61,7 @@ void	walls_casting(t_game *game)
 		init_walls_casting(x, game);
 		while (!game->rc.hit)
 		{
-			game->rc.side = !(game->rc.sideDist.x < game->rc.sideDist.y);
+			get_adequate_texture(game);
 			if (!game->rc.side)
 			{
 				game->rc.sideDist.x += game->rc.deltaDist.x;

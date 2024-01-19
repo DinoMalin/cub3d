@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 21:29:46 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/19 17:05:06 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/19 17:50:21 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ void	init_raycasting(t_game *game)
 	game->rc.plane.y = 0.90;
 	get_starting_direction(game);
 	game->textures.textures[0] = mlx_load_png(game->map.north_texture);
-	game->textures.textures[1] = mlx_load_png(game->map.west_texture);
+	game->textures.textures[1] = mlx_load_png(game->map.south_texture);
+	game->textures.textures[2] = mlx_load_png(game->map.west_texture);
+	game->textures.textures[3] = mlx_load_png(game->map.east_texture);
 	game->textures.floor = mlx_load_png(game->map.floor_texture);
 	game->textures.ceiling = mlx_load_png(game->map.ceiling_texture);
-	if (!game->textures.textures[0] || !game->textures.textures[1] || !game->textures.ceiling || !game->map.floor_texture || !game->map.west_texture)
+	if (!game->textures.textures[0] || !game->textures.textures[1] || !game->textures.textures[2] || !game->textures.textures[3] || !game->textures.ceiling || !game->map.floor_texture || !game->map.west_texture)
 		end(game);
 	game->textures.sword = mlx_load_png("./textures/sword.png");
 	game->textures.sword_img = mlx_texture_to_image(game->mlx, game->textures.sword);
