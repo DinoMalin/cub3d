@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/19 16:49:23 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/19 20:03:06 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,11 @@ void	keyhook(mlx_key_data_t keydata, void* param)
 	game = (t_game *)param;
 	if (keydata.key == MLX_KEY_ESCAPE)
 		end(game);
+	if (keydata.key == MLX_KEY_E)
+		open_doors(game);
+	if (keydata.key == MLX_KEY_R)
+		close_doors(game);
+
 }
 
 int main(int ac, char **av)

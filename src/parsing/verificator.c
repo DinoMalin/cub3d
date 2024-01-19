@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:15:55 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/18 19:43:03 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/19 19:39:32 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	wrong_starting_pos(char **map)
 	{
 		j = -1;
 		while (map[i][++j])
-			if (ft_strchr("NEWSD", map[i][j]))
+			if (ft_strchr("NEWS", map[i][j]))
 				starting_pos++;
 	}
 	return (starting_pos != 1);

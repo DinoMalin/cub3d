@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/19 17:51:07 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/19 20:02:41 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,8 @@ void	get_starting_direction(t_game *game);
 void	end(t_game *game);
 int		size_matrix(char **matrix);
 void	free_matrix(char **matrix);
+void	open_doors(t_game *game);
+void	close_doors(t_game *game);
 
 /* ======== RAYCASTING ======== */
 void	process_raycasting(t_game *game);
