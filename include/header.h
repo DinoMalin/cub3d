@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/18 19:43:12 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/19 16:56:15 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef	struct s_textures
 	mlx_texture_t	*south_wall;
 	mlx_texture_t	*west_wall;
 	mlx_texture_t	*east_wall;
+	mlx_texture_t	*textures[4];
 	mlx_texture_t	*sword;
 	mlx_image_t		*sword_img;
 	mlx_texture_t	*hotbar;

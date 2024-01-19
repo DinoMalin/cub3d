@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/19 15:37:34 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/19 16:49:23 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,10 @@ void	keyhook(mlx_key_data_t keydata, void* param)
 int main(int ac, char **av)
 {
 	static t_game	game = {};
-	if (ac != 2)
+
+	if (ac != 2 || !valid_extension(av[1]))
 	{
-		ft_putstr_fd("Error : No map.\n", 2);
+		ft_putstr_fd("Error : No map detected.\n", 2);
 		return (0);
 	}
 	init_map(av[1], &game);

@@ -5,7 +5,7 @@ SO south
 
 
 EA east
-WE west
+WE ./textures/plank_2.png
 
 F ./textures/cobblestone.png
 
