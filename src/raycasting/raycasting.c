@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 18:10:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/19 19:54:37 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/22 12:07:12 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ void	walls_casting(t_game *game)
 			}
 			if (ft_strchr("1D", game->map.map[game->rc.mapPos.x][game->rc.mapPos.y]))
 				game->rc.hit = 1;
+			if (game->map.map[game->rc.mapPos.x][game->rc.mapPos.y] == 'D' && !game->rc.side)
+				game->rc.tex_num = 4;
+			if (game->map.map[game->rc.mapPos.x][game->rc.mapPos.y] == 'D' && game->rc.side)
+				game->rc.tex_num = 5;
 		}
 		calculate_texture(game);
 		draw_texture(x, game);

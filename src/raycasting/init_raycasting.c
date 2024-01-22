@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 21:29:46 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/19 17:50:21 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/22 11:18:10 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	init_raycasting(t_game *game)
 	game->textures.textures[1] = mlx_load_png(game->map.south_texture);
 	game->textures.textures[2] = mlx_load_png(game->map.west_texture);
 	game->textures.textures[3] = mlx_load_png(game->map.east_texture);
+	game->textures.textures[4] = mlx_load_png("./textures/diamond.png");
+	game->textures.textures[5] = mlx_load_png("./textures/diamond_2.png");
 	game->textures.floor = mlx_load_png(game->map.floor_texture);
 	game->textures.ceiling = mlx_load_png(game->map.ceiling_texture);
 	if (!game->textures.textures[0] || !game->textures.textures[1] || !game->textures.textures[2] || !game->textures.textures[3] || !game->textures.ceiling || !game->map.floor_texture || !game->map.west_texture)
@@ -90,5 +92,6 @@ void	init_walls_casting(int x, t_game *game)
 	game->rc.deltaDist.x = (game->rc.ray.x == 0) ? 1e30 : fabs(1 / game->rc.ray.x);
 	game->rc.deltaDist.y = (game->rc.ray.y == 0) ? 1e30 : fabs(1 / game->rc.ray.y);
 	game->rc.hit = 0;
+	game->rc.is_door = 0;
 	calculate_ray_properties(game);
 }

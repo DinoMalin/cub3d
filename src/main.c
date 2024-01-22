@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/19 20:03:06 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/22 17:10:59 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,19 @@ void	end(t_game *game)
 	while (game->map.map[++i])
 		free(game->map.map[i]);
 	free(game->map.map);
+	i = -1;
+	while (++i < 6)
+		mlx_delete_texture(game->textures.textures[i]);
 	// mlx_delete_texture(game->textures.ceiling);
 	// mlx_delete_texture(game->textures.floor);
-	// mlx_delete_texture(game->textures.sword);
-	// mlx_delete_texture(game->textures.cursor);
-	// mlx_delete_texture(game->textures.hotbar);
-	// mlx_delete_image(game->mlx, game->textures.sword_img);
-	// mlx_delete_image(game->mlx, game->textures.cursor_img);
-	// mlx_delete_image(game->mlx, game->textures.hotbar_img);
+	mlx_delete_texture(game->textures.sword);
+	mlx_delete_texture(game->textures.cursor);
+	mlx_delete_texture(game->textures.hotbar);
+	mlx_delete_image(game->mlx, game->textures.sword_img);
+	mlx_delete_image(game->mlx, game->textures.cursor_img);
+	mlx_delete_image(game->mlx, game->textures.hotbar_img);
 	// mlx_delete_texture(game->textures.north_wall);
-	// mlx_terminate(game->mlx);
+	mlx_terminate(game->mlx);
 	// (void)game;
 	exit(0);
 }
