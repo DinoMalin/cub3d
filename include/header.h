@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/23 13:46:37 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/23 14:31:48 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ typedef	struct s_textures
 	mlx_texture_t	*floor;
 	mlx_texture_t	*ceiling;
 	mlx_texture_t	*textures[6];
-	mlx_image_t		*sword;
-	mlx_image_t		*sword_frame[5];
+	mlx_image_t		*sword[5];
 	mlx_image_t		*hotbar;
 	mlx_image_t		*cursor;
 	int				index;

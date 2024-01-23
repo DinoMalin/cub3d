@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/23 14:28:47 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/23 14:32:20 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ void	handle_sprite(t_game *game)
 		{
 			game->textures.index++;
 		}
-		game->textures.sword_frame[game->textures.index]->enabled = true;
+		game->textures.sword[game->textures.index]->enabled = true;
 		if (game->textures.index == 0)
-			game->textures.sword_frame[4]->enabled = false;
+			game->textures.sword[4]->enabled = false;
 		else
-			game->textures.sword_frame[game->textures.index - 1]->enabled = false;
+			game->textures.sword[game->textures.index - 1]->enabled = false;
 	}
 	count++;
 }
@@ -90,7 +90,9 @@ void	end(t_game *game)
 	i = -1;
 	while (++i < 6)
 		mlx_delete_texture(game->textures.textures[i]);
-	mlx_delete_image(game->mlx, game->textures.sword);
+	i = -1;
+	while (++i < 6)
+		mlx_delete_image(game->mlx, game->textures.sword[i]);
 	mlx_delete_image(game->mlx, game->textures.cursor);
 	mlx_delete_image(game->mlx, game->textures.hotbar);
 	mlx_terminate(game->mlx);

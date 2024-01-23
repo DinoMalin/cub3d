@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 21:29:46 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/23 13:49:11 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/23 14:31:48 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,25 @@ void	init_raycasting(t_game *game)
 
 void	init_sword(t_game *game)
 {
-	game->textures.sword_frame[0] = load_image(game, "./textures/sword/1.png");
-	game->textures.sword_frame[1] = load_image(game, "./textures/sword/2.png");
-	game->textures.sword_frame[2] = load_image(game, "./textures/sword/3.png");
-	game->textures.sword_frame[3] = load_image(game, "./textures/sword/4.png");
-	game->textures.sword_frame[4] = load_image(game, "./textures/sword/5.png");
-	mlx_image_to_window(game->mlx, game->textures.sword_frame[0], 0, 0);
-	mlx_image_to_window(game->mlx, game->textures.sword_frame[1], 0, 0);
-	mlx_image_to_window(game->mlx, game->textures.sword_frame[2], 0, 0);
-	mlx_image_to_window(game->mlx, game->textures.sword_frame[3], 0, 0);
-	mlx_image_to_window(game->mlx, game->textures.sword_frame[4], 0, 0);
-	mlx_set_instance_depth(game->textures.sword_frame[0]->instances, 9);
-	mlx_set_instance_depth(game->textures.sword_frame[1]->instances, 9);
-	mlx_set_instance_depth(game->textures.sword_frame[2]->instances, 9);
-	mlx_set_instance_depth(game->textures.sword_frame[3]->instances, 9);
-	mlx_set_instance_depth(game->textures.sword_frame[4]->instances, 9);
-	game->textures.sword_frame[1]->enabled = false;
-	game->textures.sword_frame[2]->enabled = false;
-	game->textures.sword_frame[3]->enabled = false;
-	game->textures.sword_frame[4]->enabled = false;
+	game->textures.sword[0] = load_image(game, "./textures/sword/1.png");
+	game->textures.sword[1] = load_image(game, "./textures/sword/2.png");
+	game->textures.sword[2] = load_image(game, "./textures/sword/3.png");
+	game->textures.sword[3] = load_image(game, "./textures/sword/4.png");
+	game->textures.sword[4] = load_image(game, "./textures/sword/5.png");
+	mlx_image_to_window(game->mlx, game->textures.sword[0], 0, 0);
+	mlx_image_to_window(game->mlx, game->textures.sword[1], 0, 0);
+	mlx_image_to_window(game->mlx, game->textures.sword[2], 0, 0);
+	mlx_image_to_window(game->mlx, game->textures.sword[3], 0, 0);
+	mlx_image_to_window(game->mlx, game->textures.sword[4], 0, 0);
+	mlx_set_instance_depth(game->textures.sword[0]->instances, 9);
+	mlx_set_instance_depth(game->textures.sword[1]->instances, 9);
+	mlx_set_instance_depth(game->textures.sword[2]->instances, 9);
+	mlx_set_instance_depth(game->textures.sword[3]->instances, 9);
+	mlx_set_instance_depth(game->textures.sword[4]->instances, 9);
+	game->textures.sword[1]->enabled = false;
+	game->textures.sword[2]->enabled = false;
+	game->textures.sword[3]->enabled = false;
+	game->textures.sword[4]->enabled = false;
 }
 
 void	init_floor_ceiling_casting(int y, t_game *game)
