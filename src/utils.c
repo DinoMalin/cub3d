@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:06:04 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/19 20:02:25 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/23 12:27:40 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,17 @@ void	free_matrix(char **matrix)
 	while (matrix[i])
 		free(matrix[i++]);
 	free(matrix);
+}
+
+mlx_image_t	*load_image(t_game *game, const char *path)
+{
+	mlx_texture_t	*texture;
+	mlx_image_t		*result;
+
+	texture = mlx_load_png(path);
+	result = mlx_texture_to_image(game->mlx, texture);
+	mlx_delete_texture(texture);
+	return (result);
 }
 
 void	open_doors(t_game *game)

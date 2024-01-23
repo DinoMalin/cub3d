@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/22 17:10:59 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/23 14:28:47 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,33 @@ void	mouse(t_game *game)
 		mlx_set_mouse_pos(game->mlx, WIDTH / 2, HEIGHT / 2);
 }
 
+void	handle_sprite(t_game *game)
+{
+	static int	count = 0;
+
+	// ft_printf("euh");
+	if (count > 100)
+		count = 0;
+	if (count % 2)
+	{
+		if (game->textures.index == 4)
+		{
+			game->textures.play_animation = FALSE;
+			game->textures.index = 0;
+		}
+		else
+		{
+			game->textures.index++;
+		}
+		game->textures.sword_frame[game->textures.index]->enabled = true;
+		if (game->textures.index == 0)
+			game->textures.sword_frame[4]->enabled = false;
+		else
+			game->textures.sword_frame[game->textures.index - 1]->enabled = false;
+	}
+	count++;
+}
+
 void	key_loop(void* param)
 {
 	t_game *game;
@@ -48,6 +75,8 @@ void	key_loop(void* param)
 		rotate_right(game, ROTATION_SPEED);
 	mouse(game);
 	process_raycasting(game);
+	if (game->textures.play_animation)
+		handle_sprite(game);
 }
 
 void	end(t_game *game)
@@ -61,17 +90,10 @@ void	end(t_game *game)
 	i = -1;
 	while (++i < 6)
 		mlx_delete_texture(game->textures.textures[i]);
-	// mlx_delete_texture(game->textures.ceiling);
-	// mlx_delete_texture(game->textures.floor);
-	mlx_delete_texture(game->textures.sword);
-	mlx_delete_texture(game->textures.cursor);
-	mlx_delete_texture(game->textures.hotbar);
-	mlx_delete_image(game->mlx, game->textures.sword_img);
-	mlx_delete_image(game->mlx, game->textures.cursor_img);
-	mlx_delete_image(game->mlx, game->textures.hotbar_img);
-	// mlx_delete_texture(game->textures.north_wall);
+	mlx_delete_image(game->mlx, game->textures.sword);
+	mlx_delete_image(game->mlx, game->textures.cursor);
+	mlx_delete_image(game->mlx, game->textures.hotbar);
 	mlx_terminate(game->mlx);
-	// (void)game;
 	exit(0);
 }
 
@@ -86,7 +108,18 @@ void	keyhook(mlx_key_data_t keydata, void* param)
 		open_doors(game);
 	if (keydata.key == MLX_KEY_R)
 		close_doors(game);
+}
 
+void	mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* param)
+{
+	t_game *game;
+
+	(void)mods;
+	game = (t_game *)param;
+	if (button == MLX_MOUSE_BUTTON_LEFT && action == MLX_PRESS)
+	{
+		game->textures.play_animation = TRUE;
+	}
 }
 
 int main(int ac, char **av)
@@ -105,8 +138,10 @@ int main(int ac, char **av)
 	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
 	init_raycasting(&game);
 	process_raycasting(&game);
+	init_sword(&game);
 	mlx_key_hook(game.mlx, &keyhook, &game);
 	mlx_loop_hook(game.mlx, &key_loop, &game);
+	mlx_mouse_hook(game.mlx, mouse_hook, &game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);
 	return (0);

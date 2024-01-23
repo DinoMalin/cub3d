@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 21:29:46 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/22 11:18:10 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/23 13:49:11 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	init_raycasting(t_game *game)
 	game->rc.dir.y = 0;
 	game->rc.plane.x = 0;
 	game->rc.plane.y = 0.90;
+	game->textures.play_animation = FALSE;
 	get_starting_direction(game);
 	game->textures.textures[0] = mlx_load_png(game->map.north_texture);
 	game->textures.textures[1] = mlx_load_png(game->map.south_texture);
@@ -29,18 +30,35 @@ void	init_raycasting(t_game *game)
 	game->textures.ceiling = mlx_load_png(game->map.ceiling_texture);
 	if (!game->textures.textures[0] || !game->textures.textures[1] || !game->textures.textures[2] || !game->textures.textures[3] || !game->textures.ceiling || !game->map.floor_texture || !game->map.west_texture)
 		end(game);
-	game->textures.sword = mlx_load_png("./textures/sword.png");
-	game->textures.sword_img = mlx_texture_to_image(game->mlx, game->textures.sword);
-	game->textures.hotbar = mlx_load_png("./textures/hotbar.png");
-	game->textures.hotbar_img = mlx_texture_to_image(game->mlx, game->textures.hotbar);
-	game->textures.cursor = mlx_load_png("./textures/cross.png");
-	game->textures.cursor_img = mlx_texture_to_image(game->mlx, game->textures.cursor);
-	mlx_image_to_window(game->mlx, game->textures.sword_img, WIDTH - game->textures.sword->width / 1.5, HEIGHT - game->textures.sword->height);
-	mlx_image_to_window(game->mlx, game->textures.hotbar_img, WIDTH / 2 - game->textures.hotbar->width / 2, HEIGHT - game->textures.hotbar->height);
-	mlx_image_to_window(game->mlx, game->textures.cursor_img, WIDTH / 2 - game->textures.cursor->width / 2, HEIGHT / 2 - game->textures.cursor->height / 2);
-	mlx_set_instance_depth(game->textures.sword_img->instances, 10);
-	mlx_set_instance_depth(game->textures.hotbar_img->instances, 10);
-	mlx_set_instance_depth(game->textures.cursor_img->instances, 11);
+	game->textures.hotbar = load_image(game, "./textures/hotbar.png");
+	game->textures.cursor = load_image(game, "./textures/cross.png");
+	mlx_image_to_window(game->mlx, game->textures.hotbar, WIDTH / 2 - game->textures.hotbar->width / 2, HEIGHT - game->textures.hotbar->height);
+	mlx_image_to_window(game->mlx, game->textures.cursor, WIDTH / 2 - game->textures.cursor->width / 2, HEIGHT / 2 - game->textures.cursor->height / 2);
+	mlx_set_instance_depth(game->textures.hotbar->instances, 10);
+	mlx_set_instance_depth(game->textures.cursor->instances, 11);
+}
+
+void	init_sword(t_game *game)
+{
+	game->textures.sword_frame[0] = load_image(game, "./textures/sword/1.png");
+	game->textures.sword_frame[1] = load_image(game, "./textures/sword/2.png");
+	game->textures.sword_frame[2] = load_image(game, "./textures/sword/3.png");
+	game->textures.sword_frame[3] = load_image(game, "./textures/sword/4.png");
+	game->textures.sword_frame[4] = load_image(game, "./textures/sword/5.png");
+	mlx_image_to_window(game->mlx, game->textures.sword_frame[0], 0, 0);
+	mlx_image_to_window(game->mlx, game->textures.sword_frame[1], 0, 0);
+	mlx_image_to_window(game->mlx, game->textures.sword_frame[2], 0, 0);
+	mlx_image_to_window(game->mlx, game->textures.sword_frame[3], 0, 0);
+	mlx_image_to_window(game->mlx, game->textures.sword_frame[4], 0, 0);
+	mlx_set_instance_depth(game->textures.sword_frame[0]->instances, 9);
+	mlx_set_instance_depth(game->textures.sword_frame[1]->instances, 9);
+	mlx_set_instance_depth(game->textures.sword_frame[2]->instances, 9);
+	mlx_set_instance_depth(game->textures.sword_frame[3]->instances, 9);
+	mlx_set_instance_depth(game->textures.sword_frame[4]->instances, 9);
+	game->textures.sword_frame[1]->enabled = false;
+	game->textures.sword_frame[2]->enabled = false;
+	game->textures.sword_frame[3]->enabled = false;
+	game->textures.sword_frame[4]->enabled = false;
 }
 
 void	init_floor_ceiling_casting(int y, t_game *game)

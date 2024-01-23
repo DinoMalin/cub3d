@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/22 11:22:40 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/23 13:46:37 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ typedef	struct s_textures
 	mlx_texture_t	*floor;
 	mlx_texture_t	*ceiling;
 	mlx_texture_t	*textures[6];
-	mlx_texture_t	*sword;
-	mlx_image_t		*sword_img;
-	mlx_texture_t	*hotbar;
-	mlx_image_t		*hotbar_img;
-	mlx_texture_t	*cursor;
-	mlx_image_t		*cursor_img;
+	mlx_image_t		*sword;
+	mlx_image_t		*sword_frame[5];
+	mlx_image_t		*hotbar;
+	mlx_image_t		*cursor;
+	int				index;
+	int				play_animation;
 } t_textures;
 
 
@@ -145,11 +145,14 @@ int		size_matrix(char **matrix);
 void	free_matrix(char **matrix);
 void	open_doors(t_game *game);
 void	close_doors(t_game *game);
+mlx_image_t	*load_image(t_game *game, const char *path);
 
 /* ======== RAYCASTING ======== */
 void	process_raycasting(t_game *game);
 
 void	init_raycasting(t_game *game);
+void	init_sword(t_game *game);
+
 void	init_floor_ceiling_casting(int y, t_game *game);
 void	init_walls_casting(int x, t_game *game);
 void	calculate_texture(t_game *game);
