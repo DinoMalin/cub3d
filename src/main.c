@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/23 16:33:35 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/23 18:04:47 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,21 +137,26 @@ int main(int ac, char **av)
 
 	if (ac != 2 || !valid_extension(av[1]))
 	{
-		ft_putstr_fd("Error : No map detected.\n", 2);
-		return (0);
+		if (ac == 3 && !ft_strcmp(av[2], "drunk_mode") && valid_extension(av[1]))
+			game.drunk = 1;
+		else
+		{
+			ft_putstr_fd("Error : No map detected.\n", 2);
+			return (0);
+		}
 	}
 	init_map(av[1], &game);
 	if (!is_valid(&game, game.map.map))
 		return (0);
 	game.mlx = mlx_init(WIDTH, HEIGHT, "dinozaur", TRUE);
-	// mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
-	// init_raycasting(&game);
-	// process_raycasting(&game);
-	// init_sword(&game);
-	// mlx_key_hook(game.mlx, &keyhook, &game);
-	// mlx_loop_hook(game.mlx, &key_loop, &game);
-	// mlx_mouse_hook(game.mlx, mouse_hook, &game);
-	cast_minimap(&game);
+	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
+	init_raycasting(&game);
+	process_raycasting(&game);
+	init_sword(&game);
+	mlx_key_hook(game.mlx, &keyhook, &game);
+	mlx_loop_hook(game.mlx, &key_loop, &game);
+	mlx_mouse_hook(game.mlx, mouse_hook, &game);
+	// cast_minimap(&game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);
 	return (0);

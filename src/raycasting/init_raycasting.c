@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 21:29:46 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/23 14:31:48 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/23 18:09:57 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,10 @@ static void	calculate_ray_properties(t_game *game)
 
 void	init_walls_casting(int x, t_game *game)
 {
-	game->rc.camera.x = 2 * x / (double)WIDTH - 1;
+	if (game->drunk)
+		game->rc.camera.x = 2 * x / (double)WIDTH - 1.1;
+	else
+		game->rc.camera.x = 2 * x / (double)WIDTH - 1;
 	game->rc.ray.x = game->rc.dir.x + game->rc.plane.x * game->rc.camera.x;
 	game->rc.ray.y = game->rc.dir.y + game->rc.plane.y * game->rc.camera.x;
 	game->rc.mapPos.x = (int)game->rc.pos.x;

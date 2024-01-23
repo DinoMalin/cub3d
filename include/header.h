@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/23 17:32:01 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/23 18:01:04 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ typedef struct	s_game
 	t_map		map;
 	t_raycast	rc;
 	t_textures	textures;
+	int			drunk;
 } t_game;
 
 /* ======== INIT ======== */
