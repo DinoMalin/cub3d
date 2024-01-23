@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/23 15:34:48 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/23 16:33:35 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,14 @@ void	end(t_game *game)
 	while (++i < 6)
 		mlx_delete_texture(game->textures.textures[i]);
 	i = -1;
-	while (++i < 6)
+	while (++i < 5)
 		mlx_delete_image(game->mlx, game->textures.sword[i]);
+	free(game->map.ceiling_texture);
+	free(game->map.floor_texture);
+	free(game->map.north_texture);
+	free(game->map.west_texture);
+	free(game->map.east_texture);
+	free(game->map.south_texture);
 	mlx_delete_image(game->mlx, game->textures.cursor);
 	mlx_delete_image(game->mlx, game->textures.hotbar);
 	mlx_terminate(game->mlx);
@@ -122,9 +128,7 @@ void	mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* 
 		open_doors(game);
 	}
 	else if (button == MLX_MOUSE_BUTTON_RIGHT && action == MLX_PRESS)
-	{
 		close_doors(game);
-	}
 }
 
 int main(int ac, char **av)
@@ -140,13 +144,14 @@ int main(int ac, char **av)
 	if (!is_valid(&game, game.map.map))
 		return (0);
 	game.mlx = mlx_init(WIDTH, HEIGHT, "dinozaur", TRUE);
-	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
-	init_raycasting(&game);
-	process_raycasting(&game);
-	init_sword(&game);
-	mlx_key_hook(game.mlx, &keyhook, &game);
-	mlx_loop_hook(game.mlx, &key_loop, &game);
-	mlx_mouse_hook(game.mlx, mouse_hook, &game);
+	// mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
+	// init_raycasting(&game);
+	// process_raycasting(&game);
+	// init_sword(&game);
+	// mlx_key_hook(game.mlx, &keyhook, &game);
+	// mlx_loop_hook(game.mlx, &key_loop, &game);
+	// mlx_mouse_hook(game.mlx, mouse_hook, &game);
+	cast_minimap(&game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);
 	return (0);

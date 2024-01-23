@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/23 15:34:29 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/23 17:32:01 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ typedef struct s_map
 	char	*west_texture;
 	char	*floor_texture;
 	char	*ceiling_texture;
+	int		width;
+	int		height;
 } t_map;
 
 typedef struct	s_game
@@ -137,6 +139,9 @@ int		init_map(char *name, t_game *game);
 void	init_raycasting(t_game *game);
 void	get_starting_direction(t_game *game);
 
+
+/* ======== MINIMAP ======== */
+void	cast_minimap(t_game *game);
 
 /* ======== UTILS ======== */
 void	end(t_game *game);
@@ -177,5 +182,6 @@ int		wrong_starting_pos(char **map);
 int		is_valid(t_game *game, char **map);
 int		is_map(char *line);
 int		textures_defined(t_game *game);
+void	init_size_map(t_game *game);
 
 #endif

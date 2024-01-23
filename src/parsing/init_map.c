@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:02:50 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/22 17:00:06 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/23 17:32:18 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	init_map(char *name, t_game *game)
 {
 	int		fd;
 	char	*line;
+	char	*temp;
 
 	fd = open(name, O_RDONLY);
 	if (fd == -1)
@@ -92,7 +93,9 @@ int	init_map(char *name, t_game *game)
 	{
 		if (ft_strlen(line) > 1)
 		{
+			temp = line;
 			line = ft_strtrim(line, "\n");
+			free(temp);
 			if (is_map(line))
 				game->map.map = join_matrix(game->map.map, line);
 			extract_textures(game, line);
@@ -103,5 +106,6 @@ int	init_map(char *name, t_game *game)
 	close(fd);
 	free(line);
 	get_starting_position(game);
+	init_size_map(game);
 	return (TRUE);
 }

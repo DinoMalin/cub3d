@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:13:16 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/18 19:41:51 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/23 17:32:09 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,25 @@ int	is_map(char *line)
 		&& ft_strncmp("WE", line, 2) && ft_strncmp("EA", line, 2)
 		&& ft_strncmp("C", line, 1) && ft_strncmp("F", line, 1)
 		&& ft_strlen(line) != 0);
+}
+
+void	init_size_map(t_game *game)
+{
+	int	i;
+	int	j;
+	int	max;
+
+	max = 0;
+	game->map.height = size_matrix(game->map.map);
+	i = -1;
+	while (game->map.map[++i])
+	{
+		j = -1;
+		while (game->map.map[i][++j])
+		{
+			if (j > max)
+				max = j;
+		}
+	}
+	game->map.width = max;
 }
