@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/23 14:32:20 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/23 15:34:48 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,8 @@ void	keyhook(mlx_key_data_t keydata, void* param)
 	game = (t_game *)param;
 	if (keydata.key == MLX_KEY_ESCAPE)
 		end(game);
-	if (keydata.key == MLX_KEY_E)
+	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
 		open_doors(game);
-	if (keydata.key == MLX_KEY_R)
-		close_doors(game);
 }
 
 void	mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* param)
@@ -121,6 +119,11 @@ void	mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* 
 	if (button == MLX_MOUSE_BUTTON_LEFT && action == MLX_PRESS)
 	{
 		game->textures.play_animation = TRUE;
+		open_doors(game);
+	}
+	else if (button == MLX_MOUSE_BUTTON_RIGHT && action == MLX_PRESS)
+	{
+		close_doors(game);
 	}
 }
 

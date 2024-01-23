@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:06:04 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/23 12:27:40 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/23 15:48:54 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,23 @@ mlx_image_t	*load_image(t_game *game, const char *path)
 void	open_doors(t_game *game)
 {
 	if (game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y + 1] == 'D')
-		game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y + 1] = 'O';
-	if ((int)game->rc.pos.y - 1 != 0 && game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y - 1] == 'D')
-		game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y - 1] = 'O';
-	if (game->map.map[(int)game->rc.pos.x + 1] && game->map.map[(int)game->rc.pos.x + 1][(int)game->rc.pos.y] == 'D')
-		game->map.map[(int)game->rc.pos.x + 1][(int)game->rc.pos.y] = 'O';
-	if ((int)game->rc.pos.x != 0 && game->map.map[(int)game->rc.pos.x - 1][(int)game->rc.pos.y] == 'D')
-		game->map.map[(int)game->rc.pos.x - 1][(int)game->rc.pos.y] = 'O';
+		game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y + 1] = '0';
+	else if ((int)game->rc.pos.y - 1 != 0 && game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y - 1] == 'D')
+		game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y - 1] = '0';
+	else if (game->map.map[(int)game->rc.pos.x + 1] && game->map.map[(int)game->rc.pos.x + 1][(int)game->rc.pos.y] == 'D')
+		game->map.map[(int)game->rc.pos.x + 1][(int)game->rc.pos.y] = '0';
+	else if ((int)game->rc.pos.x != 0 && game->map.map[(int)game->rc.pos.x - 1][(int)game->rc.pos.y] == 'D')
+		game->map.map[(int)game->rc.pos.x - 1][(int)game->rc.pos.y] = '0';
 }
 
 void	close_doors(t_game *game)
 {
-	if (game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y + 1] == 'O')
+	if (game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y + 1] == '0' && game->rc.dir.y >= 0)
 		game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y + 1] = 'D';
-	if ((int)game->rc.pos.y - 1 != 0 && game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y - 1] == 'O')
+	else if ((int)game->rc.pos.y - 1 != 0 && game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y - 1] == '0' && game->rc.dir.y < 0)
 		game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y - 1] = 'D';
-	if (game->map.map[(int)game->rc.pos.x + 1] && game->map.map[(int)game->rc.pos.x + 1][(int)game->rc.pos.y] == 'O')
+	else if (game->map.map[(int)game->rc.pos.x + 1] && game->map.map[(int)game->rc.pos.x + 1][(int)game->rc.pos.y] == '0' && game->rc.dir.x >= 0)
 		game->map.map[(int)game->rc.pos.x + 1][(int)game->rc.pos.y] = 'D';
-	if ((int)game->rc.pos.x != 0 && game->map.map[(int)game->rc.pos.x - 1][(int)game->rc.pos.y] == 'O')
+	else if ((int)game->rc.pos.x != 0 && game->map.map[(int)game->rc.pos.x - 1][(int)game->rc.pos.y] == '0' && game->rc.dir.y < 0)
 		game->map.map[(int)game->rc.pos.x - 1][(int)game->rc.pos.y] = 'D';
 }
