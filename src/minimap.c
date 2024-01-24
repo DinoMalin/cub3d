@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:18:06 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/24 15:35:07 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/24 16:21:53 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,10 @@ void	create_minimap(t_game *game)
 				mlx_put_pixel(game->map.minimap, j, i, 0xEBE3D5C0);
 			else if (game->map.map[i / game->map.ratio][j / game->map.ratio] == 'D')
 				mlx_put_pixel(game->map.minimap, j, i, 0x8c7d6cC0);
+			else
+				mlx_put_pixel(game->map.minimap, j, i, 0x8c7d6c00);
 			if ((int)game->rc.pos.x == i / game->map.ratio && (int)game->rc.pos.y == j / game->map.ratio)
 				mlx_put_pixel(game->map.minimap, j, i, 0x6499E9C0);
 		}
 	}
 }
-
-// void	cast_minimap(t_game *game)
-// {
-
-// }

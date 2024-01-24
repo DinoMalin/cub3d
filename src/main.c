@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/24 15:23:32 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/24 16:32:59 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ void	end(t_game *game)
 	free(game->map.south_texture);
 	mlx_delete_image(game->mlx, game->textures.cursor);
 	mlx_delete_image(game->mlx, game->textures.hotbar);
+	mlx_delete_texture(game->textures.ceiling);
+	mlx_delete_texture(game->textures.floor);
 	mlx_terminate(game->mlx);
 	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:13:16 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/23 17:32:09 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/24 16:24:49 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,5 @@ void	init_size_map(t_game *game)
 				max = j;
 		}
 	}
-	game->map.width = max;
+	game->map.width = max + 1;
 }
