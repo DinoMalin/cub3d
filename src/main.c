@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/23 18:04:47 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/24 13:49:05 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	keyhook(mlx_key_data_t keydata, void* param)
 	if (keydata.key == MLX_KEY_ESCAPE)
 		end(game);
 	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
-		open_doors(game);
+		destroy_block(game);
 }
 
 void	mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* param)
@@ -125,10 +125,10 @@ void	mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* 
 	if (button == MLX_MOUSE_BUTTON_LEFT && action == MLX_PRESS)
 	{
 		game->textures.play_animation = TRUE;
-		open_doors(game);
+		destroy_block(game);
 	}
 	else if (button == MLX_MOUSE_BUTTON_RIGHT && action == MLX_PRESS)
-		close_doors(game);
+		place_block(game);
 }
 
 int main(int ac, char **av)
@@ -153,10 +153,10 @@ int main(int ac, char **av)
 	init_raycasting(&game);
 	process_raycasting(&game);
 	init_sword(&game);
+	// cast_minimap(&game);
 	mlx_key_hook(game.mlx, &keyhook, &game);
 	mlx_loop_hook(game.mlx, &key_loop, &game);
 	mlx_mouse_hook(game.mlx, mouse_hook, &game);
-	// cast_minimap(&game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);
 	return (0);

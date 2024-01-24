@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:06:04 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/23 15:48:54 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/24 14:18:26 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,57 @@ mlx_image_t	*load_image(t_game *game, const char *path)
 	return (result);
 }
 
-void	open_doors(t_game *game)
+double get_rotation_angle(t_game *game)
 {
-	if (game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y + 1] == 'D')
-		game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y + 1] = '0';
-	else if ((int)game->rc.pos.y - 1 != 0 && game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y - 1] == 'D')
-		game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y - 1] = '0';
-	else if (game->map.map[(int)game->rc.pos.x + 1] && game->map.map[(int)game->rc.pos.x + 1][(int)game->rc.pos.y] == 'D')
-		game->map.map[(int)game->rc.pos.x + 1][(int)game->rc.pos.y] = '0';
-	else if ((int)game->rc.pos.x != 0 && game->map.map[(int)game->rc.pos.x - 1][(int)game->rc.pos.y] == 'D')
-		game->map.map[(int)game->rc.pos.x - 1][(int)game->rc.pos.y] = '0';
+	// Utilisez atan2 pour obtenir l'angle en radians à partir des composantes x et y du vecteur de direction
+	double radians = atan2(game->rc.dir.y, game->rc.dir.x);
+
+	// Convertir l'angle en radians en degrés
+	double degrees = radians * (180.0 / PI);
+
+	// Ajustez l'angle si nécessaire pour obtenir une plage de [0, 360)
+	degrees = fmod((degrees + 360.0), 360.0);
+
+	return degrees;
 }
 
-void	close_doors(t_game *game)
+int	direction(t_game *game)
 {
-	if (game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y + 1] == '0' && game->rc.dir.y >= 0)
+	int	angle;
+
+	angle = get_rotation_angle(game);
+	if (angle <= 45 || angle > 315)
+		return (0);
+	else if (angle >= 135 && angle < 225)
+		return (1);
+	else if (angle > 45 && angle < 135)
+		return (2);
+	return (3);
+}
+
+
+void	destroy_block(t_game *game)
+{
+	if (game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y + 1] == 'D' && direction(game) == 2)
+		game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y + 1] = '0';
+	else if ((int)game->rc.pos.y - 1 != 0 && game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y - 1] == 'D' && direction(game) == 3)
+		game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y - 1] = '0';
+	else if (game->map.map[(int)game->rc.pos.x + 1] && game->map.map[(int)game->rc.pos.x + 1][(int)game->rc.pos.y] == 'D' && direction(game) == 0)
+		game->map.map[(int)game->rc.pos.x + 1][(int)game->rc.pos.y] = '0';
+	else if ((int)game->rc.pos.x != 0 && game->map.map[(int)game->rc.pos.x - 1][(int)game->rc.pos.y] == 'D' && direction(game) == 1)
+		game->map.map[(int)game->rc.pos.x - 1][(int)game->rc.pos.y] = '0';
+	
+
+}
+
+void	place_block(t_game *game)
+{
+	if (game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y + 1] == '0' && direction(game) == 2)
 		game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y + 1] = 'D';
-	else if ((int)game->rc.pos.y - 1 != 0 && game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y - 1] == '0' && game->rc.dir.y < 0)
+	else if ((int)game->rc.pos.y - 1 != 0 && game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y - 1] == '0' && direction(game) == 3)
 		game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y - 1] = 'D';
-	else if (game->map.map[(int)game->rc.pos.x + 1] && game->map.map[(int)game->rc.pos.x + 1][(int)game->rc.pos.y] == '0' && game->rc.dir.x >= 0)
+	else if (game->map.map[(int)game->rc.pos.x + 1] && game->map.map[(int)game->rc.pos.x + 1][(int)game->rc.pos.y] == '0' && direction(game) == 0)
 		game->map.map[(int)game->rc.pos.x + 1][(int)game->rc.pos.y] = 'D';
-	else if ((int)game->rc.pos.x != 0 && game->map.map[(int)game->rc.pos.x - 1][(int)game->rc.pos.y] == '0' && game->rc.dir.y < 0)
+	else if ((int)game->rc.pos.x != 0 && game->map.map[(int)game->rc.pos.x - 1][(int)game->rc.pos.y] == '0' && direction(game) == 1)
 		game->map.map[(int)game->rc.pos.x - 1][(int)game->rc.pos.y] = 'D';
 }

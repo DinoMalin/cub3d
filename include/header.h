@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/23 18:01:04 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/24 13:48:36 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,16 +114,17 @@ typedef struct	s_raycast
 
 typedef struct s_map
 {
-	char	**map;
-	char	starting_direction;
-	char	*north_texture;
-	char	*south_texture;
-	char	*east_texture;
-	char	*west_texture;
-	char	*floor_texture;
-	char	*ceiling_texture;
-	int		width;
-	int		height;
+	char		**map;
+	char		starting_direction;
+	char		*north_texture;
+	char		*south_texture;
+	char		*east_texture;
+	char		*west_texture;
+	char		*floor_texture;
+	char		*ceiling_texture;
+	int			width;
+	int			height;
+	mlx_image_t	*minimap;
 } t_map;
 
 typedef struct	s_game
@@ -148,8 +149,8 @@ void	cast_minimap(t_game *game);
 void	end(t_game *game);
 int		size_matrix(char **matrix);
 void	free_matrix(char **matrix);
-void	open_doors(t_game *game);
-void	close_doors(t_game *game);
+void	destroy_block(t_game *game);
+void	place_block(t_game *game);
 mlx_image_t	*load_image(t_game *game, const char *path);
 
 /* ======== RAYCASTING ======== */
