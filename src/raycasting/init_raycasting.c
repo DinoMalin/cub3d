@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 21:29:46 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/24 16:24:36 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/24 17:04:59 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	init_raycasting(t_game *game)
 	game->textures.textures[5] = mlx_load_png("./textures/diamond_2.png");
 	game->textures.floor = mlx_load_png(game->map.floor_texture);
 	game->textures.ceiling = mlx_load_png(game->map.ceiling_texture);
-	if (!game->textures.textures[0] || !game->textures.textures[1] || !game->textures.textures[2] || !game->textures.textures[3] || !game->textures.ceiling || !game->map.floor_texture || !game->map.west_texture)
-		end(game);
 	game->textures.hotbar = load_image(game, "./textures/hotbar.png");
 	game->textures.cursor = load_image(game, "./textures/cross.png");
+	if (!game->textures.textures[0] || !game->textures.textures[1] || !game->textures.textures[2] || !game->textures.textures[3] || !game->textures.ceiling || !game->map.floor_texture || !game->map.west_texture)
+		end(game, 1);
 	mlx_image_to_window(game->mlx, game->textures.hotbar, WIDTH / 2 - game->textures.hotbar->width / 2, HEIGHT - game->textures.hotbar->height);
 	mlx_image_to_window(game->mlx, game->textures.cursor, WIDTH / 2 - game->textures.cursor->width / 2, HEIGHT / 2 - game->textures.cursor->height / 2);
 	mlx_set_instance_depth(game->textures.hotbar->instances, 10);

@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/24 15:19:03 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/24 17:03:58 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,9 +146,10 @@ void	get_starting_direction(t_game *game);
 
 /* ======== MINIMAP ======== */
 void	create_minimap(t_game *game);
+void	minimap_handler(t_game *game);
 
 /* ======== UTILS ======== */
-void	end(t_game *game);
+void	end(t_game *game, int valid);
 int		size_matrix(char **matrix);
 void	free_matrix(char **matrix);
 void	destroy_block(t_game *game);
@@ -178,7 +179,7 @@ void	right(t_game *game);
 void	left(t_game *game);
 
 /* ======== PARSING ======== */
-int		valid_extension(char *str);
+int		valid_ext(char *str);
 int		is_closed(char **map);
 void	extract_textures(t_game *game, char	*line);
 int		forbidden_character(char **map);
@@ -187,5 +188,6 @@ int		is_valid(t_game *game, char **map);
 int		is_map(char *line);
 int		textures_defined(t_game *game);
 void	init_size_map(t_game *game);
+int	handle_args(int ac, char **av, t_game *game);
 
 #endif

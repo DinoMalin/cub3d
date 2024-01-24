@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:18:06 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/24 16:21:53 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/24 16:41:44 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,15 @@ void	create_minimap(t_game *game)
 				mlx_put_pixel(game->map.minimap, j, i, 0x6499E9C0);
 		}
 	}
+}
+
+void	minimap_handler(t_game *game)
+{
+	if (game->map.cast_minimap)
+	{
+		game->map.minimap->enabled = true;
+		create_minimap(game);
+	}
+	else
+		game->map.minimap->enabled = false;
 }

@@ -6,13 +6,13 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:15:55 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/19 19:39:32 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/24 16:51:18 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-int	valid_extension(char *str)
+int	valid_ext(char *str)
 {
 	int	i;
 
