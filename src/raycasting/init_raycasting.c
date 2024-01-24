@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 21:29:46 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/24 13:02:48 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/24 15:22:18 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ void	init_raycasting(t_game *game)
 	mlx_image_to_window(game->mlx, game->textures.cursor, WIDTH / 2 - game->textures.cursor->width / 2, HEIGHT / 2 - game->textures.cursor->height / 2);
 	mlx_set_instance_depth(game->textures.hotbar->instances, 10);
 	mlx_set_instance_depth(game->textures.cursor->instances, 11);
+	game->map.cast_minimap = FALSE;
+	game->map.ratio = 10;
+	game->map.minimap = mlx_new_image(game->mlx, game->map.width * game->map.ratio, game->map.height * game->map.ratio);
+	game->map.minimap->enabled = false;
+	mlx_image_to_window(game->mlx, game->map.minimap, WIDTH / 2 - game->map.minimap->width / 2, HEIGHT / 2 - game->map.minimap->height / 2);
 }
 
 void	init_sword(t_game *game)

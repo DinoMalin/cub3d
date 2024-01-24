@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:06:04 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/24 14:18:26 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/24 14:22:59 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,12 @@ mlx_image_t	*load_image(t_game *game, const char *path)
 
 double get_rotation_angle(t_game *game)
 {
-	// Utilisez atan2 pour obtenir l'angle en radians à partir des composantes x et y du vecteur de direction
-	double radians = atan2(game->rc.dir.y, game->rc.dir.x);
-
-	// Convertir l'angle en radians en degrés
-	double degrees = radians * (180.0 / PI);
-
-	// Ajustez l'angle si nécessaire pour obtenir une plage de [0, 360)
+	double radians;
+	double degrees;
+	
+	radians = atan2(game->rc.dir.y, game->rc.dir.x);
+	degrees = radians * (180.0 / PI);
 	degrees = fmod((degrees + 360.0), 360.0);
-
 	return degrees;
 }
 

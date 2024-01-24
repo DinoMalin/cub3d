@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/24 13:48:36 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/24 15:19:03 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,9 @@ typedef struct s_map
 	char		*ceiling_texture;
 	int			width;
 	int			height;
+	int			cast_minimap;
 	mlx_image_t	*minimap;
+	int			ratio;
 } t_map;
 
 typedef struct	s_game
@@ -143,7 +145,7 @@ void	get_starting_direction(t_game *game);
 
 
 /* ======== MINIMAP ======== */
-void	cast_minimap(t_game *game);
+void	create_minimap(t_game *game);
 
 /* ======== UTILS ======== */
 void	end(t_game *game);

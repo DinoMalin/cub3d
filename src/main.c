@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/24 13:49:05 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/24 15:23:32 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,13 @@ void	key_loop(void* param)
 		rotate_left(game, ROTATION_SPEED);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
 		rotate_right(game, ROTATION_SPEED);
+	if (game->map.cast_minimap)
+	{
+		game->map.minimap->enabled = true;
+		create_minimap(game);
+	}
+	else
+		game->map.minimap->enabled = false;
 	mouse(game);
 	process_raycasting(game);
 	if (game->textures.play_animation)
@@ -114,6 +121,8 @@ void	keyhook(mlx_key_data_t keydata, void* param)
 		end(game);
 	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
 		destroy_block(game);
+	if (keydata.key == MLX_KEY_M && keydata.action == MLX_PRESS)
+		game->map.cast_minimap = !game->map.cast_minimap;
 }
 
 void	mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* param)
@@ -153,6 +162,7 @@ int main(int ac, char **av)
 	init_raycasting(&game);
 	process_raycasting(&game);
 	init_sword(&game);
+	// create_minimap(&game);
 	// cast_minimap(&game);
 	mlx_key_hook(game.mlx, &keyhook, &game);
 	mlx_loop_hook(game.mlx, &key_loop, &game);
