@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 16:00:34 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/25 16:08:15 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/25 17:06:24 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,14 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 		game->map.cast_minimap = !game->map.cast_minimap;
 }
 
-void	mouse(mouse_key_t but, action_t action, modifier_key_t md, void *param)
+void	mouse(mouse_key_t but, action_t at, modifier_key_t md, void *param)
 {
 	t_game	*game;
 
 	(void)md;
 	game = (t_game *)param;
-	if (but == MLX_MOUSE_BUTTON_LEFT && action == MLX_PRESS)
+	if (but == MLX_MOUSE_BUTTON_LEFT && at == MLX_PRESS)
 		destroy_block(game);
-	else if (but == MLX_MOUSE_BUTTON_RIGHT && action == MLX_PRESS)
+	else if (but == MLX_MOUSE_BUTTON_RIGHT && at == MLX_PRESS)
 		place_block(game);
 }
