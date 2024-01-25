@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotate.c                                           :+:      :+:    :+:   */
+/*   direction.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:50:27 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/25 14:51:54 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/25 16:15:29 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,15 @@ void	get_starting_direction(t_game *game)
 		rotate_right(game, PI / 2);
 	else if (game->map.starting_direction == 'W')
 		rotate_left(game, PI / 2);
+}
+
+double	get_rotation_angle(t_game *game)
+{
+	double	radians;
+	double	degrees;
+
+	radians = atan2(game->rc.dir.y, game->rc.dir.x);
+	degrees = radians * (180.0 / PI);
+	degrees = fmod((degrees + 360.0), 360.0);
+	return (degrees);
 }

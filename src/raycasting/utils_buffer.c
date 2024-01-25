@@ -6,11 +6,16 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:31:10 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/25 15:04:15 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/25 15:58:43 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+int	get_rgba(int r, int g, int b, int a)
+{
+	return (r << 24 | g << 16 | b << 8 | a);
+}
 
 void	draw_buffer(t_game *game, mlx_image_t *image)
 {
@@ -45,21 +50,6 @@ void	clear_buffer(t_game *game)
 			game->rc.screen_buffer[i][j++] = 0;
 		i++;
 	}
-}
-
-int	get_rgba(int r, int g, int b, int a)
-{
-	return (r << 24 | g << 16 | b << 8 | a);
-}
-
-void	get_tex_x(t_game *game)
-{
-	if (!game->rc.side && game->rc.ray.x > 0)
-		game->rc.texx = game->textures.textures[game->rc.tex_num]->width
-			- game->rc.texx - 1;
-	if (game->rc.side && game->rc.ray.y < 0)
-		game->rc.texx = game->textures.textures[game->rc.tex_num]->width
-			- game->rc.texx - 1;
 }
 
 void	calculate_texture(t_game *game, int x)

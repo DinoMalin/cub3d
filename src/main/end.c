@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 12:09:29 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/25 13:39:58 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/25 15:46:11 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,3 @@ void	end(t_game *game, int error_code)
 	mlx_terminate(game->mlx);
 	exit(0);
 }
-
-/*
-MAP
-TEXTURES (noms)
-TEXTURES (mlx_textures)
-IMAGES (ceiling / floor)
-IMAGES (sword)
-*/

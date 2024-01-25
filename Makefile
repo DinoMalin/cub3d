@@ -12,9 +12,11 @@ LFLAGS =	-Llib \
 
 SRC_DIR = src/
 OBJ_DIR = obj/
-FILES =	main utils minimap end \
-		parsing/init_map parsing/utils_parsing parsing/verificators parsing/valid_map parsing/handle_args \
-		raycasting/raycasting raycasting/init_raycasting raycasting/utils_buffer raycasting/directions raycasting/rotate
+FILES =	main/main main/utils main/end \
+		parsing/init_map parsing/utils_parsing parsing/verificators parsing/valid_map \
+		gui/load_textures gui/minimap \
+		raycasting/raycasting raycasting/init_raycasting raycasting/utils_buffer raycasting/direction raycasting/move raycasting/get_textures \
+		interactions/blocks interactions/hooks
 
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
@@ -34,7 +36,7 @@ re: fclean all
 
 $(NAME): $(OBJS) $(LIBFT)
 	@echo "\033[32m✔ Compilating sources files...\033[37m"
-	@$(CC) -o $@ $(OBJS) $(LFLAGS)
+	$(CC) -o $@ $(OBJS) $(LFLAGS)
 	@echo "\033[32m✔ Executable created.\033[37m"
 
 $(LIBFT):

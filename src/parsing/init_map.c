@@ -6,27 +6,11 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:02:50 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/25 14:33:52 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/25 16:05:00 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-
-void	init_map_properties(t_map *map)
-{
-	map->map = malloc(sizeof(char *));
-	map->map[0] = NULL;
-}
-
-int	len_matrix(char **arr)
-{
-	int	len;
-
-	len = 0;
-	while (arr[len])
-		len++;
-	return (len);
-}
 
 char	**join_matrix(char **s1, char *s2)
 {
@@ -73,23 +57,6 @@ void	get_starting_position(t_game *game)
 		}
 		x++;
 	}
-}
-
-void	get_map(t_game *game, char *line, int fd)
-{
-	char	*temp;
-
-	if (ft_strlen(line) > 1)
-	{
-		temp = line;
-		line = ft_strtrim(line, "\n");
-		free(temp);
-		if (is_map(line))
-			game->map.map = join_matrix(game->map.map, line);
-		extract_textures(game, line);
-	}
-	free(line);
-	line = get_next_line(fd);
 }
 
 int	end_init(int fd, char *line, t_game *game)

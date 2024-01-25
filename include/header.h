@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/25 14:57:32 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/25 16:15:55 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,11 +155,11 @@ void	minimap_handler(t_game *game);
 
 /* ======== UTILS ======== */
 void	end(t_game *game, int error_code);
-int		size_matrix(char **matrix);
 void	free_matrix(char **matrix);
 void	destroy_block(t_game *game);
 void	place_block(t_game *game);
 mlx_image_t	*load_image(t_game *game, const char *path);
+int	len_matrix(char **arr);
 
 /* ======== RAYCASTING ======== */
 void	process_raycasting(t_game *game);
@@ -178,10 +178,16 @@ int		get_rgba(int r, int g, int b, int a);
 
 void	rotate_left(t_game *game, double rotation_angle);
 void	rotate_right(t_game *game, double rotation_angle);
+double	get_rotation_angle(t_game *game);
 void	up(t_game *game);
 void	down(t_game *game);
 void	right(t_game *game);
 void	left(t_game *game);
+
+void	get_floor_texture(t_game *game, int x, int y);
+void	get_adequate_texture(t_game *game);
+void	get_door_texture(t_game *game);
+void	get_tex_x(t_game *game);
 
 /* ======== PARSING ======== */
 int		valid_ext(char *str);
@@ -193,6 +199,19 @@ int		is_valid(t_game *game, char **map);
 int		is_map(char *line);
 int		textures_defined(t_game *game);
 void	init_size_map(t_game *game);
-int	handle_args(int ac, char **av, t_game *game);
+int		handle_args(int ac, char **av, t_game *game);
+void	init_map_properties(t_map *map);
+
+
+void	cursor(t_game *game);
+void	handle_sprite(t_game *game);
+void	key_loop(void *param);
+void	keyhook(mlx_key_data_t keydata, void *param);
+void	mouse(mouse_key_t but, action_t action, modifier_key_t md, void *param);
+
+void	load_textures(t_game *game);
+void	set_gui(t_game *game);
+void	init_sword(t_game *game);
+
 
 #endif

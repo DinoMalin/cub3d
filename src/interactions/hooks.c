@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/25 15:06:27 by jcario           ###   ########.fr       */
+/*   Created: 2024/01/25 16:00:34 by jcario            #+#    #+#             */
+/*   Updated: 2024/01/25 16:08:15 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,37 +87,14 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 		game->map.cast_minimap = !game->map.cast_minimap;
 }
 
-void	mouse(mouse_key_t but, action_t action, modifier_key_t mod, void *param)
+void	mouse(mouse_key_t but, action_t action, modifier_key_t md, void *param)
 {
 	t_game	*game;
 
-	(void)mod;
+	(void)md;
 	game = (t_game *)param;
 	if (but == MLX_MOUSE_BUTTON_LEFT && action == MLX_PRESS)
 		destroy_block(game);
 	else if (but == MLX_MOUSE_BUTTON_RIGHT && action == MLX_PRESS)
 		place_block(game);
-}
-
-int	main(int ac, char **av)
-{
-	static t_game	game = {};
-
-	if (!handle_args(ac, av, &game))
-		return (0);
-	if (!init_map(&game, av[1]))
-		return (ft_putstr_fd("No map detected.\n", 2));
-	if (!is_valid(&game, game.map.map))
-		end(&game, 0);
-	game.mlx = mlx_init(WIDTH, HEIGHT, "dinozaur", TRUE);
-	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
-	init_raycasting(&game);
-	process_raycasting(&game);
-	init_sword(&game);
-	mlx_key_hook(game.mlx, &keyhook, &game);
-	mlx_loop_hook(game.mlx, &key_loop, &game);
-	mlx_mouse_hook(game.mlx, mouse, &game);
-	mlx_loop(game.mlx);
-	mlx_terminate(game.mlx);
-	return (0);
 }

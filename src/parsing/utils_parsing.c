@@ -6,11 +6,17 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:13:16 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/25 14:35:12 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/25 16:11:54 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+void	init_map_properties(t_map *map)
+{
+	map->map = malloc(sizeof(char *));
+	map->map[0] = NULL;
+}
 
 static char	*extract_texture(char *line)
 {
@@ -18,7 +24,7 @@ static char	*extract_texture(char *line)
 	char	*result;
 
 	split = ft_split(line, ' ');
-	if (size_matrix(split) != 2)
+	if (len_matrix(split) != 2)
 	{
 		free_matrix(split);
 		return (NULL);
@@ -59,7 +65,7 @@ void	init_size_map(t_game *game)
 	int	max;
 
 	max = 0;
-	game->map.height = size_matrix(game->map.map);
+	game->map.height = len_matrix(game->map.map);
 	i = -1;
 	while (game->map.map[++i])
 	{
