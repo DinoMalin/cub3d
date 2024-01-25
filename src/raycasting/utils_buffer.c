@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:31:10 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/19 17:46:49 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/25 15:04:15 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,45 +52,59 @@ int	get_rgba(int r, int g, int b, int a)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-void	calculate_texture(t_game *game)
+void	get_tex_x(t_game *game)
+{
+	if (!game->rc.side && game->rc.ray.x > 0)
+		game->rc.texx = game->textures.textures[game->rc.tex_num]->width
+			- game->rc.texx - 1;
+	if (game->rc.side && game->rc.ray.y < 0)
+		game->rc.texx = game->textures.textures[game->rc.tex_num]->width
+			- game->rc.texx - 1;
+}
+
+void	calculate_texture(t_game *game, int x)
 {
 	if (!game->rc.side)
-		game->rc.perpWallDist = (game->rc.sideDist.x - game->rc.deltaDist.x);
+		game->rc.pwall_dist = (game->rc.side_dist.x - game->rc.delta_dist.x);
 	else
-		game->rc.perpWallDist = (game->rc.sideDist.y - game->rc.deltaDist.y);
-	game->rc.lineHeight = (int)(HEIGHT / game->rc.perpWallDist);
-	game->rc.drawStart = -game->rc.lineHeight / 2 + HEIGHT / 2;
-	if(game->rc.drawStart < 0)
-		game->rc.drawStart = 0;
-	game->rc.drawEnd = game->rc.drawStart + game->rc.lineHeight;
-	if (game->rc.drawEnd >= HEIGHT)
-		game->rc.drawEnd = HEIGHT - 1;
-	
+		game->rc.pwall_dist = (game->rc.side_dist.y - game->rc.delta_dist.y);
+	game->rc.line_height = (int)(HEIGHT / game->rc.pwall_dist);
+	game->rc.draw_start = -game->rc.line_height / 2 + HEIGHT / 2;
+	if (game->rc.draw_start < 0)
+		game->rc.draw_start = 0;
+	game->rc.draw_end = game->rc.draw_start + game->rc.line_height;
+	if (game->rc.draw_end >= HEIGHT)
+		game->rc.draw_end = HEIGHT - 1;
 	if (!game->rc.side)
-		game->rc.wallX = game->rc.pos.y + game->rc.perpWallDist * game->rc.ray.y;
+		game->rc.wallx = game->rc.pos.y + game->rc.pwall_dist * game->rc.ray.y;
 	else
-		game->rc.wallX = game->rc.pos.x + game->rc.perpWallDist * game->rc.ray.x;
-	game->rc.wallX -= floor(game->rc.wallX);
-	game->rc.texX = (int)(game->rc.wallX * (double)game->textures.textures[game->rc.tex_num]->width);
-	if (!game->rc.side && game->rc.ray.x > 0)
-		game->rc.texX = game->textures.textures[game->rc.tex_num]->width - game->rc.texX - 1;
-	if (game->rc.side && game->rc.ray.y < 0)
-		game->rc.texX = game->textures.textures[game->rc.tex_num]->width - game->rc.texX - 1;
-	game->rc.step_texture = 1.0 * game->textures.textures[game->rc.tex_num]->height / game->rc.lineHeight;
-	game->rc.texPos = (game->rc.drawStart - HEIGHT / 2 + game->rc.lineHeight / 2) * game->rc.step_texture;
+		game->rc.wallx = game->rc.pos.x + game->rc.pwall_dist * game->rc.ray.x;
+	game->rc.wallx -= floor(game->rc.wallx);
+	game->rc.texx = (int)(game->rc.wallx * (double)game->textures.textures
+		[game->rc.tex_num]->width);
+	get_tex_x(game);
+	game->rc.step_texture = 1.0 * game->textures.textures
+	[game->rc.tex_num]->height / game->rc.line_height;
+	game->rc.tex_pos = (game->rc.draw_start - HEIGHT / 2
+			+ game->rc.line_height / 2) * game->rc.step_texture;
+	draw_texture(x, game);
 }
 
 void	draw_texture(int x, t_game *game)
 {
 	int	y;
+	int	texy;
 
-	y = game->rc.drawStart - 1;
-	(void)x;
-	while (++y < game->rc.drawEnd)
+	y = game->rc.draw_start - 1;
+	while (++y < game->rc.draw_end)
 	{
-		int texY = (int)game->rc.texPos & (game->textures.textures[game->rc.tex_num]->height - 1);
-		game->rc.texPos += game->rc.step_texture;
-		game->rc.color = &game->textures.textures[game->rc.tex_num]->pixels[(game->textures.textures[game->rc.tex_num]->height * texY + game->rc.texX) * 4];
-		game->rc.screen_buffer[x][y] = get_rgba(game->rc.color[0], game->rc.color[1], game->rc.color[2], game->rc.color[3]);
+		texy = (int)game->rc.tex_pos & (game->textures.textures
+			[game->rc.tex_num]->height - 1);
+		game->rc.tex_pos += game->rc.step_texture;
+		game->rc.color = &game->textures.textures[game->rc.tex_num]->pixels
+		[(game->textures.textures[game->rc.tex_num]->height
+				* texy + game->rc.texx) * 4];
+		game->rc.screen_buffer[x][y] = get_rgba(game->rc.color[0],
+				game->rc.color[1], game->rc.color[2], game->rc.color[3]);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:15:55 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/25 12:45:46 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/25 14:36:03 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	valid_ext(char *str)
 	i -= ft_strlen(".cub");
 	if (i <= 0)
 		return (FALSE);
-	return !ft_strcmp(".cub", str + i);
+	return (!ft_strcmp(".cub", str + i));
 }
 
 int	is_closed(char **map)

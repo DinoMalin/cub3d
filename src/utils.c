@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:06:04 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/25 12:39:09 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/25 15:13:09 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,15 @@ mlx_image_t	*load_image(t_game *game, const char *path)
 	return (result);
 }
 
-double get_rotation_angle(t_game *game)
+double	get_rotation_angle(t_game *game)
 {
-	double radians;
-	double degrees;
-	
+	double	radians;
+	double	degrees;
+
 	radians = atan2(game->rc.dir.y, game->rc.dir.x);
 	degrees = radians * (180.0 / PI);
 	degrees = fmod((degrees + 360.0), 360.0);
-	return degrees;
+	return (degrees);
 }
 
 int	direction(t_game *game)
@@ -68,30 +68,40 @@ int	direction(t_game *game)
 	return (3);
 }
 
-
 void	destroy_block(t_game *game)
 {
-	game->textures.play_animation = TRUE;
-	if (game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y + 1] == 'D' && direction(game) == 2)
+	game->img.play_animation = TRUE;
+	if (game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y + 1] == 'D'
+		&& direction(game) == 2)
 		game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y + 1] = '0';
-	else if ((int)game->rc.pos.y - 1 != 0 && game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y - 1] == 'D' && direction(game) == 3)
+	else if ((int)game->rc.pos.y - 1 != 0 && game->map.map[(int)game->rc.pos.x]
+		[(int)game->rc.pos.y - 1] == 'D' && direction(game) == 3)
 		game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y - 1] = '0';
-	else if (game->map.map[(int)game->rc.pos.x + 1] && game->map.map[(int)game->rc.pos.x + 1][(int)game->rc.pos.y] == 'D' && direction(game) == 0)
+	else if (game->map.map[(int)game->rc.pos.x + 1] && game->map.map
+		[(int)game->rc.pos.x + 1][(int)game->rc.pos.y] == 'D'
+		&& direction(game) == 0)
 		game->map.map[(int)game->rc.pos.x + 1][(int)game->rc.pos.y] = '0';
-	else if ((int)game->rc.pos.x != 0 && game->map.map[(int)game->rc.pos.x - 1][(int)game->rc.pos.y] == 'D' && direction(game) == 1)
+	else if ((int)game->rc.pos.x != 0 && game->map.map[(int)game->rc.pos.x - 1]
+		[(int)game->rc.pos.y] == 'D' && direction(game) == 1)
 		game->map.map[(int)game->rc.pos.x - 1][(int)game->rc.pos.y] = '0';
-	
-
 }
 
 void	place_block(t_game *game)
 {
-	if (game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y + 1] == '0' && direction(game) == 2)
+	if (ft_strchr("0NSEW", game->map.map[(int)game->rc.pos.x]
+			[(int)game->rc.pos.y + 1])
+		&& direction(game) == 2)
 		game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y + 1] = 'D';
-	else if ((int)game->rc.pos.y - 1 != 0 && game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y - 1] == '0' && direction(game) == 3)
+	else if ((int)game->rc.pos.y - 1 != 0
+		&& ft_strchr("0NSEW", game->map.map[(int)game->rc.pos.x]
+			[(int)game->rc.pos.y - 1]) && direction(game) == 3)
 		game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y - 1] = 'D';
-	else if (game->map.map[(int)game->rc.pos.x + 1] && game->map.map[(int)game->rc.pos.x + 1][(int)game->rc.pos.y] == '0' && direction(game) == 0)
+	else if (game->map.map[(int)game->rc.pos.x + 1]
+		&& ft_strchr("0NSEW", game->map.map[(int)game->rc.pos.x + 1]
+			[(int)game->rc.pos.y]) && direction(game) == 0)
 		game->map.map[(int)game->rc.pos.x + 1][(int)game->rc.pos.y] = 'D';
-	else if ((int)game->rc.pos.x != 0 && game->map.map[(int)game->rc.pos.x - 1][(int)game->rc.pos.y] == '0' && direction(game) == 1)
+	else if ((int)game->rc.pos.x != 0
+		&& ft_strchr("0NSEW", game->map.map[(int)game->rc.pos.x - 1]
+			[(int)game->rc.pos.y]) && direction(game) == 1)
 		game->map.map[(int)game->rc.pos.x - 1][(int)game->rc.pos.y] = 'D';
 }

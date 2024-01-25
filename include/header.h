@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/25 12:13:02 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/25 14:57:32 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,20 @@ typedef enum {
 	WEST
 } t_direction;
 
-typedef	struct s_textures
+typedef struct s_images
 {
-	mlx_texture_t	*floor;
-	mlx_texture_t	*ceiling;
-	mlx_texture_t	*textures[6];
 	mlx_image_t		*sword[5];
 	mlx_image_t		*hotbar;
 	mlx_image_t		*cursor;
 	int				index;
 	int				play_animation;
+} t_images;
+
+typedef	struct s_textures
+{
+	mlx_texture_t	*floor;
+	mlx_texture_t	*ceiling;
+	mlx_texture_t	*textures[6];
 } t_textures;
 
 
@@ -81,29 +85,29 @@ typedef struct	s_raycast
 	t_double_coords	plane;
 	t_double_coords	camera;
 	t_double_coords	ray;
-	t_double_coords	sideDist;
-	t_double_coords	deltaDist;
-	t_int_coords	mapPos;
+	t_double_coords	side_dist;
+	t_double_coords	delta_dist;
+	t_int_coords	map_pos;
 	t_int_coords	step;
-	double			perpWallDist;
+	double			pwall_dist;
 	double			step_texture;
-	double			texPos;
+	double			tex_pos;
 	int				hit;
 	int				side;
-	int				drawStart;
-	int				drawEnd;
-	int				lineHeight;
-	double			wallX;
-	int				texX;
+	int				draw_start;
+	int				draw_end;
+	int				line_height;
+	double			wallx;
+	int				texx;
 	int				tex_num;
 	int				is_door;
 	/* === FLOOR AND CEILING CASTING === */
 	t_double_coords	ray0;
 	t_double_coords	ray1;
 	int				p;
-	float			posZ;
-	float			rowDistance;
-	t_double_coords	floorStep;
+	float			pos_z;
+	float			row_distance;
+	t_double_coords	floor_step;
 	t_double_coords	floor;
 	t_int_coords	cell;
 	t_int_coords	texture;
@@ -135,11 +139,12 @@ typedef struct	s_game
 	t_map		map;
 	t_raycast	rc;
 	t_textures	textures;
+	t_images	img;
 	int			drunk;
 } t_game;
 
 /* ======== INIT ======== */
-int		init_map(char *name, t_game *game);
+int		init_map(t_game *game, char *name);	
 void	init_raycasting(t_game *game);
 void	get_starting_direction(t_game *game);
 
@@ -164,7 +169,7 @@ void	init_sword(t_game *game);
 
 void	init_floor_ceiling_casting(int y, t_game *game);
 void	init_walls_casting(int x, t_game *game);
-void	calculate_texture(t_game *game);
+void	calculate_texture(t_game *game, int x);
 void	draw_texture(int x, t_game *game);
 
 void	draw_buffer(t_game *game, mlx_image_t *image);

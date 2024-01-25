@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:02:50 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/23 17:32:18 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/25 14:33:52 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,43 @@ void	get_starting_position(t_game *game)
 	}
 }
 
-int	init_map(char *name, t_game *game)
+void	get_map(t_game *game, char *line, int fd)
+{
+	char	*temp;
+
+	if (ft_strlen(line) > 1)
+	{
+		temp = line;
+		line = ft_strtrim(line, "\n");
+		free(temp);
+		if (is_map(line))
+			game->map.map = join_matrix(game->map.map, line);
+		extract_textures(game, line);
+	}
+	free(line);
+	line = get_next_line(fd);
+}
+
+int	end_init(int fd, char *line, t_game *game)
+{
+	close(fd);
+	free(line);
+	get_starting_position(game);
+	init_size_map(game);
+	return (TRUE);
+}
+
+int	check_line(t_game *game, char *line)
+{
+	if (line)
+	{
+		init_map_properties(&game->map);
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
+int	init_map(t_game *game, char *name)
 {
 	int		fd;
 	char	*line;
@@ -85,9 +121,7 @@ int	init_map(char *name, t_game *game)
 	if (fd == -1)
 		return (FALSE);
 	line = get_next_line(fd);
-	if (line)
-		init_map_properties(&game->map);
-	else
+	if (!check_line(game, line))
 		return (FALSE);
 	while (line)
 	{
@@ -103,9 +137,5 @@ int	init_map(char *name, t_game *game)
 		free(line);
 		line = get_next_line(fd);
 	}
-	close(fd);
-	free(line);
-	get_starting_position(game);
-	init_size_map(game);
-	return (TRUE);
+	return (end_init(fd, line, game));
 }

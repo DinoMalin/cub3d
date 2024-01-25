@@ -6,20 +6,17 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/25 12:39:15 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/25 15:06:27 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-# define mapWidth 24
-# define mapHeight 24
-
 void	cursor(t_game *game)
 {
 	int	x;
 	int	y;
-	
+
 	mlx_get_mouse_pos(game->mlx, &x, &y);
 	if (x > WIDTH / 2)
 		rotate_right(game, SENSIBILITY);
@@ -37,26 +34,26 @@ void	handle_sprite(t_game *game)
 		count = 0;
 	if (count % 2)
 	{
-		if (game->textures.index == 4)
+		if (game->img.index == 4)
 		{
-			game->textures.play_animation = FALSE;
-			game->textures.index = 0;
+			game->img.play_animation = FALSE;
+			game->img.index = 0;
 		}
 		else
-			game->textures.index++;
-		game->textures.sword[game->textures.index]->enabled = true;
-		if (game->textures.index == 0)
-			game->textures.sword[4]->enabled = false;
+			game->img.index++;
+		game->img.sword[game->img.index]->enabled = true;
+		if (game->img.index == 0)
+			game->img.sword[4]->enabled = false;
 		else
-			game->textures.sword[game->textures.index - 1]->enabled = false;
+			game->img.sword[game->img.index - 1]->enabled = false;
 	}
 	count++;
 }
 
-void	key_loop(void* param)
+void	key_loop(void *param)
 {
-	t_game *game;
-	
+	t_game	*game;
+
 	game = (t_game *)param;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
 		up(game);
@@ -73,14 +70,14 @@ void	key_loop(void* param)
 	minimap_handler(game);
 	cursor(game);
 	process_raycasting(game);
-	if (game->textures.play_animation)
+	if (game->img.play_animation)
 		handle_sprite(game);
 }
 
-void	keyhook(mlx_key_data_t keydata, void* param)
+void	keyhook(mlx_key_data_t keydata, void *param)
 {
-	t_game *game;
-	
+	t_game	*game;
+
 	game = (t_game *)param;
 	if (keydata.key == MLX_KEY_ESCAPE)
 		end(game, 2);
@@ -90,9 +87,9 @@ void	keyhook(mlx_key_data_t keydata, void* param)
 		game->map.cast_minimap = !game->map.cast_minimap;
 }
 
-void	mouse(mouse_key_t but, action_t action, modifier_key_t mod, void* param)
+void	mouse(mouse_key_t but, action_t action, modifier_key_t mod, void *param)
 {
-	t_game *game;
+	t_game	*game;
 
 	(void)mod;
 	game = (t_game *)param;
@@ -102,13 +99,14 @@ void	mouse(mouse_key_t but, action_t action, modifier_key_t mod, void* param)
 		place_block(game);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	static t_game	game = {};
 
 	if (!handle_args(ac, av, &game))
 		return (0);
-	init_map(av[1], &game);
+	if (!init_map(&game, av[1]))
+		return (ft_putstr_fd("No map detected.\n", 2));
 	if (!is_valid(&game, game.map.map))
 		end(&game, 0);
 	game.mlx = mlx_init(WIDTH, HEIGHT, "dinozaur", TRUE);

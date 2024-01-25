@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 12:09:29 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/25 12:37:12 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/25 13:39:58 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	del_mlx(t_game *game)
 	while (++i < 6)
 		if (game->textures.textures[i])
 			mlx_delete_texture(game->textures.textures[i]);
-	mlx_delete_image(game->mlx, game->textures.hotbar);
-	mlx_delete_image(game->mlx, game->textures.cursor);
+	mlx_delete_image(game->mlx, game->img.hotbar);
+	mlx_delete_image(game->mlx, game->img.cursor);
 	if (game->textures.ceiling)
 		mlx_delete_texture(game->textures.ceiling);
 	if (game->textures.floor)
@@ -50,7 +50,7 @@ void	end(t_game *game, int error_code)
 	del_mlx(game);
 	if (error_code != 1)
 		while (++i < 5)
-			mlx_delete_image(game->mlx, game->textures.sword[i]);
+			mlx_delete_image(game->mlx, game->img.sword[i]);
 	mlx_terminate(game->mlx);
 	exit(0);
 }

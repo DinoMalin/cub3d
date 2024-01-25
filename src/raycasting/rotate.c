@@ -1,25 +1,49 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rotate.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/25 14:50:27 by jcario            #+#    #+#             */
+/*   Updated: 2024/01/25 14:51:54 by jcario           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
 
 void	rotate_left(t_game *game, double rotation_angle)
 {
-	double	oldDirX = game->rc.dir.x;
-	double	oldPlaneX = game->rc.plane.x;
+	double	old_dir_x;
+	double	old_plane_x;
 
-	game->rc.dir.x = game->rc.dir.x * cos(rotation_angle) - game->rc.dir.y * sin(rotation_angle);
-	game->rc.dir.y = oldDirX * sin(rotation_angle) + game->rc.dir.y * cos(rotation_angle);
-	game->rc.plane.x = game->rc.plane.x * cos(rotation_angle) - game->rc.plane.y * sin(rotation_angle);
-	game->rc.plane.y = oldPlaneX * sin(rotation_angle) + game->rc.plane.y * cos(rotation_angle);
+	old_dir_x = game->rc.dir.x;
+	old_plane_x = game->rc.plane.x;
+	game->rc.dir.x = game->rc.dir.x * cos(rotation_angle) - game->rc.dir.y
+		* sin(rotation_angle);
+	game->rc.dir.y = old_dir_x * sin(rotation_angle) + game->rc.dir.y
+		* cos(rotation_angle);
+	game->rc.plane.x = game->rc.plane.x * cos(rotation_angle) - game->rc.plane.y
+		* sin(rotation_angle);
+	game->rc.plane.y = old_plane_x * sin(rotation_angle) + game->rc.plane.y
+		* cos(rotation_angle);
 }
 
 void	rotate_right(t_game *game, double rotation_angle)
 {
-	double	oldDirX = game->rc.dir.x;
-	double	oldPlaneX = game->rc.plane.x;
+	double	old_dir_x;
+	double	old_plane_x;
 
-	game->rc.dir.x = game->rc.dir.x * cos(-rotation_angle) - game->rc.dir.y * sin(-rotation_angle);
-	game->rc.dir.y = oldDirX * sin(-rotation_angle) + game->rc.dir.y * cos(-rotation_angle);
-	game->rc.plane.x = game->rc.plane.x * cos(-rotation_angle) - game->rc.plane.y * sin(-rotation_angle);
-	game->rc.plane.y = oldPlaneX * sin(-rotation_angle) + game->rc.plane.y * cos(-rotation_angle);
+	old_dir_x = game->rc.dir.x;
+	old_plane_x = game->rc.plane.x;
+	game->rc.dir.x = game->rc.dir.x * cos(-rotation_angle) - game->rc.dir.y
+		* sin(-rotation_angle);
+	game->rc.dir.y = old_dir_x * sin(-rotation_angle) + game->rc.dir.y
+		* cos(-rotation_angle);
+	game->rc.plane.x = game->rc.plane.x * cos(-rotation_angle)
+		- game->rc.plane.y * sin(-rotation_angle);
+	game->rc.plane.y = old_plane_x * sin(-rotation_angle) + game->rc.plane.y
+		* cos(-rotation_angle);
 }
 
 void	get_starting_direction(t_game *game)
