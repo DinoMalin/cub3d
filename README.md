@@ -9,7 +9,7 @@ My first RayCaster with miniLibX
 To install Cub3D, clone the project with
 
 ```bash
-  https://github.com/DinoMalin/cub3d.git
+  git clone https://github.com/DinoMalin/cub3d.git
   cd cub3d
 ```
 Then compile the executable using
