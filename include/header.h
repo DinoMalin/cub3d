@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/24 17:03:58 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/25 12:13:02 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ void	create_minimap(t_game *game);
 void	minimap_handler(t_game *game);
 
 /* ======== UTILS ======== */
-void	end(t_game *game, int valid);
+void	end(t_game *game, int error_code);
 int		size_matrix(char **matrix);
 void	free_matrix(char **matrix);
 void	destroy_block(t_game *game);

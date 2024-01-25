@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   verificator.c                                      :+:      :+:    :+:   */
+/*   verificators.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:15:55 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/24 16:51:18 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/25 12:45:46 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ int	is_closed(char **map)
 			if (ft_strchr("0NEWSD", map[i][j]) && (!map[i + 1] || i == 0))
 				return (FALSE);
 			if (ft_strchr("0NEWSD", map[i][j]) && (!map[i][j + 1] || j == 0))
+				return (FALSE);
+			if (ft_strchr("0NEWSD", map[i][j])
+				&& (int)ft_strlen(map[i - 1]) - 1 < j)
 				return (FALSE);
 			if (ft_strchr("0NEWSD", map[i][j])
 				&& (!ft_strchr("10NEWSD", map[i][j + 1])

@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:06:04 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/24 14:22:59 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/25 12:39:09 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	direction(t_game *game)
 
 void	destroy_block(t_game *game)
 {
+	game->textures.play_animation = TRUE;
 	if (game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y + 1] == 'D' && direction(game) == 2)
 		game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y + 1] = '0';
 	else if ((int)game->rc.pos.y - 1 != 0 && game->map.map[(int)game->rc.pos.x][(int)game->rc.pos.y - 1] == 'D' && direction(game) == 3)

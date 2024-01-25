@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/24 17:12:14 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/25 12:39:15 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,48 +77,13 @@ void	key_loop(void* param)
 		handle_sprite(game);
 }
 
-void	free_textures(t_game *game)
-{
-	free(game->map.ceiling_texture);
-	free(game->map.floor_texture);
-	free(game->map.north_texture);
-	free(game->map.west_texture);
-	free(game->map.east_texture);
-	free(game->map.south_texture);
-}
-
-void	end(t_game *game, int valid)
-{
-	int	i;
-
-	i = -1;
-	while (game->map.map[++i])
-		free(game->map.map[i]);
-	free(game->map.map);
-	i = -1;
-	free_textures(game);
-	if (!valid)
-		exit(0);
-	while (++i < 6)
-		mlx_delete_texture(game->textures.textures[i]);
-	i = -1;
-	while (++i < 5)
-		mlx_delete_image(game->mlx, game->textures.sword[i]);
-	mlx_delete_image(game->mlx, game->textures.cursor);
-	mlx_delete_image(game->mlx, game->textures.hotbar);
-	mlx_delete_texture(game->textures.ceiling);
-	mlx_delete_texture(game->textures.floor);
-	mlx_terminate(game->mlx);
-	exit(0);
-}
-
 void	keyhook(mlx_key_data_t keydata, void* param)
 {
 	t_game *game;
 	
 	game = (t_game *)param;
 	if (keydata.key == MLX_KEY_ESCAPE)
-		end(game, 1);
+		end(game, 2);
 	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
 		destroy_block(game);
 	if (keydata.key == MLX_KEY_M && keydata.action == MLX_PRESS)
@@ -132,10 +97,7 @@ void	mouse(mouse_key_t but, action_t action, modifier_key_t mod, void* param)
 	(void)mod;
 	game = (t_game *)param;
 	if (but == MLX_MOUSE_BUTTON_LEFT && action == MLX_PRESS)
-	{
-		game->textures.play_animation = TRUE;
 		destroy_block(game);
-	}
 	else if (but == MLX_MOUSE_BUTTON_RIGHT && action == MLX_PRESS)
 		place_block(game);
 }
@@ -144,9 +106,10 @@ int main(int ac, char **av)
 {
 	static t_game	game = {};
 
-	handle_args(ac, av, &game);
+	if (!handle_args(ac, av, &game))
+		return (0);
 	init_map(av[1], &game);
-	if (!handle_args(ac, av, &game) || !is_valid(&game, game.map.map))
+	if (!is_valid(&game, game.map.map))
 		end(&game, 0);
 	game.mlx = mlx_init(WIDTH, HEIGHT, "dinozaur", TRUE);
 	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
