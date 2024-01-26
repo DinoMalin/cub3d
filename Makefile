@@ -36,7 +36,7 @@ re: fclean all
 
 $(NAME): $(OBJS) $(LIBFT)
 	@echo "\033[32m✔ Compilating sources files...\033[37m"
-	$(CC) -o $@ $(OBJS) $(LFLAGS)
+	@$(CC) -o $@ $(OBJS) $(LFLAGS)
 	@echo "\033[32m✔ Executable created.\033[37m"
 
 $(LIBFT):
