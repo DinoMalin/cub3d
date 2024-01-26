@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:19:23 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/05 15:23:58 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/26 14:58:27 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,8 @@ void	*ft_memchr(const void *ptr, int search, size_t size);
  @param ptr1 A pointer.
  @param ptr2 A pointer.
  @param size A size.
- @return 0 if the memory areas are identical, otherwise the difference between them.
+ @return 0 if the memory areas are identical, otherwise the difference
+ between them.
 */
 int		ft_memcmp(const void *ptr1, const void *ptr2, size_t size);
 
@@ -309,7 +310,7 @@ void	ft_striteri(char *str, void (*f)(unsigned int, char *));
  @param fd A file descriptor.
  @return The number of characters that the function has printed, always 1.
 */
-int	ft_putchar_fd(char ch, int fd);
+int		ft_putchar_fd(char ch, int fd);
 
 /**
  @brief Print a string on a defined file descriptor.
@@ -317,7 +318,7 @@ int	ft_putchar_fd(char ch, int fd);
  @param fd A file descriptor.
  @return The len of the string.
 */
-int	ft_putstr_fd(char *str, int fd);
+int		ft_putstr_fd(char *str, int fd);
 
 /**
  @brief Print a string on a defined file descriptor, and
@@ -326,7 +327,7 @@ int	ft_putstr_fd(char *str, int fd);
  @param fd A file descriptor.
  @return The len of the string and of the endline (strlen + 1).
 */
-int	ft_putendl_fd(char *str, int fd);
+int		ft_putendl_fd(char *str, int fd);
 
 /**
  @brief Print an integer on a defined file descriptor.
@@ -334,7 +335,7 @@ int	ft_putendl_fd(char *str, int fd);
  @param fd A file descriptor.
  @return The number of character that the function has printed.
 */
-int	ft_putnbr_fd(int n, int fd);
+int		ft_putnbr_fd(int n, int fd);
 
 /**
  @brief Print an unsigned integer on a defined file descriptor.
@@ -342,7 +343,7 @@ int	ft_putnbr_fd(int n, int fd);
  @param fd A file descriptor.
  @return The number of character that the function has printed.
 */
-int	ft_putunbr_fd(unsigned int n, int fd);
+int		ft_putunbr_fd(unsigned int n, int fd);
 
 /**
  @brief Print an integer converted into hexadecimal on a defined file
@@ -353,7 +354,7 @@ int	ft_putunbr_fd(unsigned int n, int fd);
  @param up A boolean.
  @return The number of character that the function has printed.
 */
-int	ft_puthexa_fd(unsigned long n, int fd, int upper);
+int		ft_puthexa_fd(unsigned long n, int fd, int upper);
 
 /* ================================== LST ================================== */
 
@@ -432,7 +433,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
  @param variadic Variadic arguments.
  @return The number of character that the function has printed
 */
-int	ft_printf(const char *str, ...);
+int		ft_printf(const char *str, ...);
 
 /**
  @brief A modification of strjoin to fit the exigences of get_next_line.

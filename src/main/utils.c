@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:06:04 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/25 16:03:15 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/26 14:55:50 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,3 @@ mlx_image_t	*load_image(t_game *game, const char *path)
 	mlx_delete_texture(texture);
 	return (result);
 }
-

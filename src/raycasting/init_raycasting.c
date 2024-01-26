@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 21:29:46 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/25 16:14:50 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/26 14:56:22 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	init_floor_ceiling_casting(int y, t_game *game)
 	game->rc.floor.x = game->rc.pos.x + game->rc.row_distance * game->rc.ray0.x;
 	game->rc.floor.y = game->rc.pos.y + game->rc.row_distance * game->rc.ray0.y;
 }
-
 
 void	init_walls_casting(int x, t_game *game)
 {
