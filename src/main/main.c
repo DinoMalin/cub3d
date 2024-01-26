@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:53:42 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/25 16:01:27 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/26 13:52:53 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	main(int ac, char **av)
 	init_raycasting(&game);
 	process_raycasting(&game);
 	init_sword(&game);
+	mlx_close_hook(game.mlx, cross, &game);
 	mlx_key_hook(game.mlx, &keyhook, &game);
 	mlx_loop_hook(game.mlx, &key_loop, &game);
 	mlx_mouse_hook(game.mlx, mouse, &game);

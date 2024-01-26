@@ -6,11 +6,19 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 12:09:29 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/25 15:46:11 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/26 13:50:15 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+void	cross(void *param)
+{
+	t_game	*game;
+
+	game = (t_game *)param;
+	end(game, 2);
+}
 
 void	free_textures(t_game *game)
 {

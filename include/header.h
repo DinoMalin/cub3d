@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:52:35 by jcario            #+#    #+#             */
-/*   Updated: 2024/01/25 17:17:43 by jcario           ###   ########.fr       */
+/*   Updated: 2024/01/26 13:50:44 by jcario           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ void		init_walls_casting(int x, t_game *game);
 
 /* ======== UTILS ======== */
 
+void		cross(void *param);
 void		end(t_game *game, int error_code);
 mlx_image_t	*load_image(t_game *game, const char *path);
 void		free_matrix(char **matrix);
