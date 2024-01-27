@@ -21,10 +21,8 @@ void	draw_buffer(t_game *game, mlx_image_t *image)
 {
 	int	x;
 	int	y;
-	int	i;
 
 	y = 0;
-	i = 0;
 	while (y < HEIGHT)
 	{
 		x = 0;
