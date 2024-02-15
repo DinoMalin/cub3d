@@ -20,7 +20,7 @@ Then compile the executable using
 Finally, launch the game with
 
 ```bash
-  ./Cub3D <your_map>
+  ./cub3D <your_map>
 ```
 
     
