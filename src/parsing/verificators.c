@@ -6,7 +6,7 @@
 /*   By: jcario <jcario@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 16:15:55 by jcario            #+#    #+#             */
-/*   Updated: 2024/03/13 18:49:32 by vcornill         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:57:29 by vcornill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,6 @@ int	is_closed(char **map)
 			if (ft_strchr("0NEWSD", map[i][j]) && (!map[i + 1] || i == 0))
 				return (FALSE);
 			if (ft_strchr("0NEWSD", map[i][j]) && (!map[i][j + 1] || j == 0))
-				return (FALSE);
-			if (ft_strchr("0NEWSD", map[i][j])
-				&& (int)ft_strlen(map[i - 1]) - 1 < j)
 				return (FALSE);
 			if (ft_strchr("0NEWSD", map[i][j])
 				&& (int)ft_strlen(map[i + 1]) - 1 < j)
