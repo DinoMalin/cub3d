@@ -23,6 +23,8 @@ int	main(int ac, char **av)
 	if (!is_valid(&game, game.map.map))
 		end(&game, 0);
 	game.mlx = mlx_init(WIDTH, HEIGHT, "dinozaur", TRUE);
+	if (!game.mlx)
+		end(&game, 0);
 	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
 	init_raycasting(&game);
 	process_raycasting(&game);
